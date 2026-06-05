@@ -998,6 +998,75 @@
       box-shadow: var(--shadow);
     }
 
+    .official-form-card {
+      display: grid;
+      gap: 18px;
+      align-content: center;
+      min-height: 430px;
+    }
+
+    .form-kicker {
+      display: inline-flex;
+      width: fit-content;
+      padding: 7px 10px;
+      border-radius: 8px;
+      color: var(--clay);
+      background: rgba(223, 201, 173, 0.34);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .official-form-card h3 {
+      margin: 0;
+      font-family: "Noto Serif TC", serif;
+      font-size: clamp(1.65rem, 3vw, 2.6rem);
+      line-height: 1.2;
+      color: var(--coffee);
+    }
+
+    .official-form-card p {
+      margin: 0;
+      color: rgba(45, 41, 37, 0.72);
+      line-height: 1.8;
+    }
+
+    .form-checklist {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .form-checklist li {
+      position: relative;
+      padding-left: 24px;
+      color: rgba(45, 41, 37, 0.78);
+      font-weight: 600;
+    }
+
+    .form-checklist li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.62em;
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--sage);
+    }
+
+    .form-link-button {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .form-note {
+      font-size: 0.9rem;
+    }
+
     .lead-form {
       display: grid;
       gap: 14px;
@@ -1849,61 +1918,21 @@
       <div class="container form-grid">
         <div class="form-copy reveal">
           <span class="eyebrow">Landlord assessment</span>
-          <h2>先留下物件資訊，我們再協助判斷下一步。</h2>
-          <p>填寫物件區域、屋況與希望服務後，Chome 會依你的資訊初步判斷適合的委託方式，再安排後續聯繫。</p>
+          <h2>直接填寫官方表單，不用重複留資料。</h2>
+          <p>為了避免你在官網填一次、到 Google 表單又重填一次，這裡直接導到 Chome 官方房東評估表單。收到後我們會依你的物件資訊再安排後續聯繫。</p>
         </div>
-        <div class="form-panel reveal">
-          <form class="lead-form" id="leadForm" action="https://forms.gle/om1Vd2Amt76srkZu6" target="_blank">
-            <div class="form-row">
-              <div class="field">
-                <label for="ownerName">房東姓名</label>
-                <input id="ownerName" name="ownerName" type="text" autocomplete="name" required>
-              </div>
-              <div class="field">
-                <label for="phone">聯絡電話</label>
-                <input id="phone" name="phone" type="tel" autocomplete="tel" required>
-              </div>
-            </div>
-            <div class="field">
-              <label for="contactLine">LINE ID 或 Email</label>
-              <input id="contactLine" name="contactLine" type="text" autocomplete="email">
-            </div>
-            <div class="field">
-              <label for="address">物件地址或區域</label>
-              <input id="address" name="address" type="text" placeholder="例如：台中西屯、台北中山、新北板橋" required>
-            </div>
-            <div class="form-row">
-              <div class="field">
-                <label for="layout">房型 / 坪數</label>
-                <input id="layout" name="layout" type="text" placeholder="例如：2 房 1 廳 / 24 坪">
-              </div>
-              <div class="field">
-                <label for="status">目前狀態</label>
-                <select id="status" name="status">
-                  <option>空屋</option>
-                  <option>出租中</option>
-                  <option>需整理</option>
-                  <option>需估租</option>
-                </select>
-              </div>
-            </div>
-            <div class="field">
-              <label for="serviceNeed">希望服務</label>
-              <select id="serviceNeed" name="serviceNeed">
-                <option>包租</option>
-                <option>代管</option>
-                <option>招租</option>
-                <option>軟裝整理</option>
-                <option>其他</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="message">補充說明</label>
-              <textarea id="message" name="message" placeholder="可補充屋況、家具設備、預計出租時間或其他需求"></textarea>
-            </div>
-            <p class="form-message" id="formMessage">將開啟 Chome 官方 Google 表單，請在表單中完成送出，我們收到後會再與你聯繫。</p>
-            <button class="btn btn-primary" type="submit">送出評估資料</button>
-          </form>
+        <div class="form-panel reveal official-form-card">
+          <span class="form-kicker">Google Form</span>
+          <h3>房東物件評估表</h3>
+          <p>表單內會請你填寫姓名、聯絡方式、物件區域、屋況與希望服務。</p>
+          <ul class="form-checklist" aria-label="????????">
+            <li>房東姓名與聯絡方式</li>
+            <li>物件地址或區域</li>
+            <li>房型、坪數與目前狀態</li>
+            <li>希望委託的服務</li>
+          </ul>
+          <a class="btn btn-primary form-link-button" href="https://forms.gle/om1Vd2Amt76srkZu6" target="_blank" rel="noopener">開啟官方評估表單</a>
+          <p class="form-note">表單會在新分頁開啟，送出後資料會直接進入 Chome 官方表單回覆。</p>
         </div>
       </div>
     </section>
@@ -2422,12 +2451,14 @@
       }
     });
 
-    leadForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-      formMessage.classList.add("is-visible");
-      formMessage.scrollIntoView({ block: "nearest", behavior: "smooth" });
-      window.open("https://forms.gle/om1Vd2Amt76srkZu6", "_blank", "noopener");
-    });
+    if (leadForm && formMessage) {
+      leadForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        formMessage.classList.add("is-visible");
+        formMessage.scrollIntoView({ block: "nearest", behavior: "smooth" });
+        window.open("https://forms.gle/om1Vd2Amt76srkZu6", "_blank", "noopener");
+      });
+    }
 
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
