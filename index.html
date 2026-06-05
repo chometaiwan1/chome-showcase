@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Chome 提供包租代管、招租媒合、租務管理與軟裝加值服務，協助房東穩定出租，也讓租客找到更舒適的家。">
-  <title>Chome 包租代管｜讓房子被好好照顧</title>
+  <meta name="description" content="Chome好室寓所 提供包租代管、招租媒合、租務管理與軟裝加值服務，協助房東穩定出租，也讓租客找到更舒適的家。">
+  <title>Chome好室寓所 包租代管｜讓房子被好好照顧</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" type="image/png" href="assets/icon/logo.png">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@500;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -139,11 +140,16 @@
       place-items: center;
       width: 38px;
       height: 38px;
-      color: var(--white);
+      overflow: hidden;
       background: var(--coffee);
       border-radius: 8px;
-      font-family: "Noto Serif TC", serif;
-      font-size: 1.1rem;
+      box-shadow: 0 10px 22px rgba(53, 45, 40, 0.14);
+    }
+
+    .brand-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .brand small {
@@ -360,27 +366,19 @@
       right: 28px;
       bottom: 42px;
       width: 190px;
-      padding: 18px;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
       border: 1px solid rgba(255, 253, 248, 0.72);
       border-radius: 8px;
-      background: rgba(53, 45, 40, 0.84);
-      color: var(--white);
-      backdrop-filter: blur(12px);
+      background: var(--linen);
+      box-shadow: var(--shadow);
     }
 
-    .hero-badge strong {
+    .hero-badge img {
       display: block;
-      font-family: "Noto Serif TC", serif;
-      font-size: 2.3rem;
-      line-height: 1;
-    }
-
-    .hero-badge span {
-      display: block;
-      margin-top: 8px;
-      color: rgba(255, 253, 248, 0.72);
-      font-size: 0.82rem;
-      line-height: 1.55;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .stats {
@@ -883,6 +881,7 @@
     }
 
     .video-frame {
+      position: relative;
       overflow: hidden;
       border-radius: 8px;
       background: var(--coffee);
@@ -895,17 +894,55 @@
       border: 0;
     }
 
+    .video-open-link {
+      position: absolute;
+      right: 14px;
+      bottom: 14px;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 9px 12px;
+      border-radius: 8px;
+      color: var(--coffee);
+      background: rgba(255, 253, 248, 0.92);
+      font-weight: 800;
+      font-size: 0.86rem;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+    }
+
     .video-placeholder {
+      position: relative;
       display: grid;
       place-items: center;
       width: 100%;
       height: 100%;
       padding: 30px;
+      overflow: hidden;
       color: #fffdf8;
-      background:
-        linear-gradient(135deg, rgba(53, 45, 40, 0.84), rgba(129, 95, 75, 0.7)),
-        linear-gradient(135deg, rgba(53, 45, 40, 0.9), rgba(119, 131, 111, 0.72));
+      background: var(--coffee);
       text-align: center;
+    }
+
+    .video-placeholder::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(53, 45, 40, 0.38), rgba(53, 45, 40, 0.74));
+    }
+
+    .video-banner-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .video-placeholder > span {
+      position: relative;
+      z-index: 1;
     }
 
     .video-placeholder strong {
@@ -1278,6 +1315,12 @@
       grid-column: span 2;
     }
 
+    .contact-buttons .wide-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
     .footer {
       padding: 24px 0;
       color: rgba(255, 253, 248, 0.55);
@@ -1573,8 +1616,8 @@
         position: relative;
         right: auto;
         bottom: auto;
-        width: 100%;
-        background: var(--coffee);
+        width: 68%;
+        aspect-ratio: 4 / 3;
       }
 
       .stats-grid,
@@ -1623,9 +1666,9 @@
 <body>
   <header class="site-header">
     <div class="container nav">
-      <a href="#top" class="brand" aria-label="Chome 首頁">
-        <span class="brand-mark">C</span>
-        <span>Chome<small>包租代管與軟裝加值</small></span>
+      <a href="#top" class="brand" aria-label="Chome好室寓所 首頁">
+        <span class="brand-mark"><img src="assets/icon/logo.png" alt="Chome好室寓所 Logo"></span>
+        <span>Chome好室寓所<small>包租代管與軟裝加值</small></span>
       </a>
       <nav class="nav-links" id="navLinks" aria-label="主要導覽">
         <a href="#services">服務</a>
@@ -1650,29 +1693,28 @@
       <div class="container hero-grid">
         <div class="hero-copy reveal">
           <span class="eyebrow">Rental care with warm design</span>
-          <h1>讓房子被好好照顧，也被<span>好好喜歡。</span></h1>
-          <p>Chome 以包租代管為核心，整合招租、租務管理、修繕協調與軟裝加值。替房東降低空屋與管理壓力，也讓租客遇見更舒適、更有生活感的家。</p>
+          <h1>房子，不只是出租。<span>更是穩定收益的資產。</span></h1>
+          <p>我們協助房東快速媒合優質租客，處理帶看與管理瑣事，並透過代租代管與軟裝加值，降低空租風險、提升物件質感與租金價值。</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#assessment">填寫房東評估</a>
             <a class="btn btn-secondary" href="#cases">瀏覽物件案例</a>
           </div>
           <div class="hero-note" aria-label="服務重點">
-            <span class="note-chip">包租代管</span>
-            <span class="note-chip">招租媒合</span>
-            <span class="note-chip">租務維護</span>
-            <span class="note-chip">軟裝提升</span>
+            <span class="note-chip">快速媒合優質租客</span>
+            <span class="note-chip">專業代租代管</span>
+            <span class="note-chip">降低空租風險</span>
+            <span class="note-chip">提升租金價值</span>
           </div>
         </div>
         <div class="hero-media reveal">
           <figure class="hero-photo main">
-            <img id="heroMainImage" src="assets/images/property-002-wenshan-muzha/room-a/image-001.jpg" alt="Chome 經手物件的室內空間照片">
+            <img id="heroMainImage" src="assets/images/property-002-wenshan-muzha/room-a/image-001.jpg" alt="Chome好室寓所 經手物件的室內空間照片">
           </figure>
           <figure class="hero-photo secondary">
-            <img id="heroSecondaryImage" src="assets/images/property-007-wanhua-xiyuan/completed/image-001.png" alt="Chome 整理後的物件空間細節">
+            <img id="heroSecondaryImage" src="assets/images/property-007-wanhua-xiyuan/completed/image-001.png" alt="Chome好室寓所 整理後的物件空間細節">
           </figure>
           <div class="hero-badge">
-            <strong>7</strong>
-            <span>間物件案例資料架構已就緒，適合持續新增作品與招租內容。</span>
+            <img src="assets/images/property-005-xinzhuang-zhonggang/room-a/image-002.jpg" alt="Chome好室寓所 物件臥室照片">
           </div>
         </div>
       </div>
@@ -1685,16 +1727,15 @@
             <span class="eyebrow">Two paths</span>
             <h2>房東放心委託，租客安心入住。</h2>
           </div>
-          <p>首頁以房東轉換為主，租客入口作為輔助分流。不同需求的人進站後，都能快速找到下一步。</p>
         </div>
         <div class="split-panel">
           <article class="audience-card reveal">
             <h3>我是房東</h3>
-            <p>想降低空屋期、找合適租客，或希望有人協助修繕、收租、日常溝通。</p>
+            <p>讓您不用天天處理租客問題，也能安心收租。</p>
             <ul>
-              <li>先評估物件狀態與出租條件</li>
-              <li>建議招租定價與整理方向</li>
-              <li>代為處理租務、修繕與入住後溝通</li>
+              <li>快速媒合優質租客</li>
+              <li>處理帶看與管理瑣事</li>
+              <li>降低空租風險與日常溝通</li>
             </ul>
             <a class="btn btn-primary" href="#assessment">開始評估</a>
           </article>
@@ -1716,10 +1757,10 @@
       <div class="container">
         <div class="section-head reveal">
           <div>
-            <span class="eyebrow">Why Chome</span>
+            <span class="eyebrow">Why Chome好室寓所</span>
             <h2>把房東最耗神的事，整理成可管理的流程。</h2>
           </div>
-          <p>空屋、租客篩選、修繕溝通、物件整理與租金穩定，往往不是單一問題。Chome 的工作是把它們一起看，讓物件更容易被理解、被信任、被選擇。</p>
+          <p>空屋、租客篩選、修繕溝通、物件整理與租金穩定，往往不是單一問題。Chome好室寓所 的工作是把它們一起看，讓物件更容易被理解、被信任、被選擇。</p>
         </div>
         <div class="fit-grid">
           <article class="fit-card reveal">
@@ -1821,9 +1862,8 @@
         <div class="section-head reveal">
           <div>
             <span class="eyebrow">Selected homes</span>
-            <h2>物件不只被出租，也值得被好好展示。</h2>
+            <h2>美房鑑賞</h2>
           </div>
-          <p>每間物件以封面、風格標籤、空間亮點與照片集呈現。現有照片先作為第一間完整案例，其餘案例保留正式結構，方便補齊資料後上線。</p>
         </div>
         <div class="case-grid" id="caseGrid" aria-label="精選物件案例"></div>
       </div>
@@ -1873,17 +1913,17 @@
         <div class="section-head reveal">
           <div>
             <span class="eyebrow">Short videos</span>
-            <h2>用短影音，看見物件的真實生活感。</h2>
+            <h2>影音專區</h2>
           </div>
-          <p>直接嵌入 Chome YouTube 頻道影片，讓物件走訪、軟裝前後、房東 FAQ 與租客入住提醒成為官網信任的一部分。</p>
         </div>
         <div class="video-grid">
-          <div class="video-frame reveal" id="youtubeEmbed" aria-label="Chome YouTube 頻道影片">
+          <div class="video-frame reveal" id="youtubeEmbed" aria-label="Chome好室寓所 YouTube 頻道影片">
             <div class="video-placeholder">
+              <img class="video-banner-image" src="assets/icon/Banner_YT.jpg" alt="Chome好室寓所 YouTube 橫幅">
               <span>
-                <strong>Chome YouTube 頻道</strong>
-                <span>本機檔案預覽無法直接嵌入 YouTube；正式網站會自動顯示頻道影片。</span>
-                <a class="btn btn-secondary" href="https://www.youtube.com/channel/UCiBXMoMY0IQpuu6G8-kPoDw" target="_blank" rel="noreferrer">前往 YouTube 頻道</a>
+                <strong>Chome好室寓所 YouTube 頻道</strong>
+                <span>若影片無法在網站內播放，可以直接前往 Chome好室寓所 YouTube 頻道觀看。</span>
+                <a class="btn btn-secondary" href="https://www.youtube.com/channel/UCiBXMoMY0IQpuu6G8-kPoDw" target="_blank" rel="noopener">前往 YouTube 頻道</a>
               </span>
             </div>
           </div>
@@ -1918,8 +1958,8 @@
       <div class="container form-grid">
         <div class="form-copy reveal">
           <span class="eyebrow">Landlord assessment</span>
-          <h2>直接填寫官方表單，不用重複留資料。</h2>
-          <p>為了避免你在官網填一次、到 Google 表單又重填一次，這裡直接導到 Chome 官方房東評估表單。收到後我們會依你的物件資訊再安排後續聯繫。</p>
+          <h2>我要委託評估</h2>
+          <p>收到後我們會依你的物件資訊再安排後續聯繫。</p>
         </div>
         <div class="form-panel reveal official-form-card">
           <span class="form-kicker">Google Form</span>
@@ -1932,7 +1972,6 @@
             <li>希望委託的服務</li>
           </ul>
           <a class="btn btn-primary form-link-button" href="https://forms.gle/om1Vd2Amt76srkZu6" target="_blank" rel="noopener">開啟官方評估表單</a>
-          <p class="form-note">表單會在新分頁開啟，送出後資料會直接進入 Chome 官方表單回覆。</p>
         </div>
       </div>
     </section>
@@ -1942,7 +1981,6 @@
         <div class="reveal">
           <span class="eyebrow">FAQ</span>
           <h2 class="section-title">常見問題</h2>
-          <p>把房東與租客最常問的事情先說清楚，聯繫時就能更快進入實際評估。</p>
         </div>
         <div class="faq-list reveal">
           <details open>
@@ -1951,11 +1989,11 @@
           </details>
           <details>
             <summary>服務費用怎麼計算？</summary>
-            <p>費用會依服務範圍、物件狀態與管理需求而定。建議先填寫評估表，Chome 會依資料提供適合的合作方式。</p>
+            <p>費用會依服務範圍、物件狀態與管理需求而定。建議先填寫評估表，Chome好室寓所 會依資料提供適合的合作方式。</p>
           </details>
           <details>
             <summary>修繕問題由誰處理？</summary>
-            <p>Chome 可協助初步確認問題、安排修繕溝通與進度回報。是否由房東負擔費用，會依設備責任與合約內容判斷。</p>
+            <p>Chome好室寓所 可協助初步確認問題、安排修繕溝通與進度回報。是否由房東負擔費用，會依設備責任與合約內容判斷。</p>
           </details>
           <details>
             <summary>會協助篩選租客嗎？</summary>
@@ -1967,7 +2005,7 @@
           </details>
           <details>
             <summary>租客可以從官網看最新房源嗎？</summary>
-            <p>官網會展示精選案例與社群入口。最新釋出的房源與短影音內容，建議透過聯絡按鈕追蹤 Chome 社群。</p>
+            <p>官網會展示精選案例與社群入口。最新釋出的房源與短影音內容，建議透過聯絡按鈕追蹤 Chome好室寓所 社群。</p>
           </details>
         </div>
       </div>
@@ -1978,7 +2016,7 @@
         <div>
           <h2>有物件想委託，或想追蹤最新房源？</h2>
         </div>
-        <div class="contact-buttons" aria-label="聯絡 Chome">
+        <div class="contact-buttons" aria-label="聯絡 Chome好室寓所">
           <a class="btn icon-btn facebook" href="https://www.facebook.com/chometaiwan?locale=zh_TW" target="_blank" rel="noreferrer" aria-label="Facebook">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8.7h2.2V5.2c-.4-.1-1.7-.2-3.2-.2-3.2 0-5.4 1.9-5.4 5.5v3.1H4v3.9h3.6V24H12v-6.5h3.5l.6-3.9H12v-2.7c0-1.1.3-2.2 2-2.2Z"/></svg>
           </a>
@@ -1991,8 +2029,14 @@
           <a class="btn icon-btn line" href="https://lin.ee/QcS9ss8" target="_blank" rel="noreferrer" aria-label="LINE @chome77777">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.1 8.2 7.8.3.1.7.2.8.5.1.3.1.6 0 .9l-.2 1.1c-.1.3-.2 1.1.9.6 1.1-.5 5.7-3.4 7.8-5.8A7.4 7.4 0 0 0 22 11c0-4.4-4.5-8-10-8Zm-3.7 10.5H5.7V8.2h1.1v4.3h1.5v1Zm2.1 0H9.3V8.2h1.1v5.3Zm5.6 0h-1.1l-2.2-3v3h-1.1V8.2h1.1l2.2 3v-3H16v5.3Zm3.1-4.3h-1.6v1h1.6v1h-1.6v1.3h1.6v1h-2.7V8.2h2.7v1Z"/></svg>
           </a>
-          <a class="btn wide-btn" href="tel:+886222766699">02-2276-6699</a>
-          <a class="btn wide-btn" href="mailto:chometaiwan1@gmail.com">Email</a>
+          <a class="btn wide-btn" href="tel:+886222766699" aria-label="電話 02-2276-6699">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.8-.4 1.2-.3 1.3.4 2.7.6 4.1.6.7 0 1.3.6 1.3 1.3v3.5c0 .7-.6 1.3-1.3 1.3C10.3 22 2 13.7 2 3.3 2 2.6 2.6 2 3.3 2h3.5c.7 0 1.3.6 1.3 1.3 0 1.4.2 2.8.6 4.1.1.4 0 .9-.3 1.2l-1.8 2.2Z"/></svg>
+            <span>02-2276-6699</span>
+          </a>
+          <a class="btn wide-btn" href="mailto:chometaiwan1@gmail.com" aria-label="Email chometaiwan1@gmail.com">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V7c0-1.1.9-2 2-2Zm8 8.1L20 8V7l-8 5.1L4 7v1l8 5.1Zm0 2.1L4 10.1V17h16v-6.9l-8 5.1Z"/></svg>
+            <span>Email</span>
+          </a>
         </div>
       </div>
     </section>
@@ -2000,7 +2044,7 @@
 
   <footer class="footer">
     <div class="container">
-      <span>© 2026 Chome. All Rights Reserved.</span>
+      <span>© 2026 Chome好室寓所. All Rights Reserved.</span>
       <span>www.chometaiwan.com</span>
     </div>
   </footer>
@@ -2361,8 +2405,11 @@
     const youtubeEmbed = document.querySelector("#youtubeEmbed");
 
     if (youtubeEmbed && /^https?:$/.test(window.location.protocol)) {
-      const youtubeSrc = `https://www.youtube.com/embed/videoseries?list=UUiBXMoMY0IQpuu6G8-kPoDw&origin=${encodeURIComponent(window.location.origin)}`;
-      youtubeEmbed.innerHTML = `<iframe src="${youtubeSrc}" title="Chome YouTube \u7269\u4ef6\u77ed\u5f71\u97f3\u64ad\u653e\u6e05\u55ae" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>`;
+      const youtubeSrc = "https://www.youtube-nocookie.com/embed/videoseries?list=UUiBXMoMY0IQpuu6G8-kPoDw&rel=0&modestbranding=1";
+      youtubeEmbed.innerHTML = `
+        <iframe src="${youtubeSrc}" title="Chome好室寓所 YouTube \u7269\u4ef6\u77ed\u5f71\u97f3\u64ad\u653e\u6e05\u55ae" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <a class="video-open-link" href="https://www.youtube.com/channel/UCiBXMoMY0IQpuu6G8-kPoDw" target="_blank" rel="noopener">\u7121\u6cd5\u64ad\u653e\uff1f\u524d\u5f80 YouTube \u983b\u9053</a>
+      `;
     }
 
     caseGrid.innerHTML = cases.map((item, index) => `
