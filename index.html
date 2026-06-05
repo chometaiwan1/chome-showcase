@@ -1,126 +1,2445 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chome好室寓所｜萬華完工實例展示</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Noto Sans TC', sans-serif;
-            background-color: #FDFBF7; /* 溫馨暖白底色 */
-            color: #3E3835; /* 暖深灰文字 */
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Chome 提供包租代管、招租媒合、租務管理與軟裝加值服務，協助房東穩定出租，也讓租客找到更舒適的家。">
+  <title>Chome 包租代管｜讓房子被好好照顧</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #fbf7ef;
+      --linen: #f1e7d8;
+      --sand: #dfc9ad;
+      --wood: #aa7b53;
+      --clay: #815f4b;
+      --coffee: #352d28;
+      --ink: #2d2925;
+      --mist: #dfe3d7;
+      --sage: #77836f;
+      --white: #fffdf8;
+      --line: rgba(53, 45, 40, 0.12);
+      --shadow: 0 22px 55px rgba(64, 46, 32, 0.12);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans TC", sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, rgba(53, 45, 40, 0.035) 1px, transparent 1px) 0 0 / 88px 88px,
+        linear-gradient(180deg, #fffaf1 0%, var(--paper) 36%, #f7efe2 100%);
+      letter-spacing: 0;
+    }
+
+    body.locked {
+      overflow: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--clay);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(260px, 0.48fr);
+      gap: 42px;
+      align-items: end;
+      margin-bottom: 44px;
+    }
+
+    .section-head h2 {
+      margin: 14px 0 0;
+      font-family: "Noto Serif TC", serif;
+      font-size: clamp(2rem, 4vw, 4rem);
+      line-height: 1.18;
+      font-weight: 600;
+      color: var(--coffee);
+    }
+
+    .section-head p {
+      margin: 0;
+      color: rgba(45, 41, 37, 0.72);
+      line-height: 1.9;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(251, 247, 239, 0.84);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 74px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      color: var(--coffee);
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      color: var(--white);
+      background: var(--coffee);
+      border-radius: 8px;
+      font-family: "Noto Serif TC", serif;
+      font-size: 1.1rem;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 2px;
+      color: rgba(53, 45, 40, 0.58);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      color: rgba(45, 41, 37, 0.72);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      position: relative;
+      padding: 8px 0;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 2px;
+      width: 100%;
+      height: 1px;
+      background: var(--wood);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.24s ease;
+    }
+
+    .nav-links a:hover::after {
+      transform: scaleX(1);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 248, 0.82);
+      border-radius: 8px;
+      color: var(--coffee);
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 18px;
+      height: 1.5px;
+      margin: 5px auto;
+      background: currentColor;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .menu-toggle.is-open span:nth-child(1) {
+      transform: translateY(6.5px) rotate(45deg);
+    }
+
+    .menu-toggle.is-open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.is-open span:nth-child(3) {
+      transform: translateY(-6.5px) rotate(-45deg);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 46px;
+      padding: 0 20px;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      line-height: 1;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: var(--white);
+      background: var(--coffee);
+      box-shadow: 0 14px 28px rgba(53, 45, 40, 0.18);
+    }
+
+    .btn-primary:hover {
+      background: var(--clay);
+    }
+
+    .btn-secondary {
+      color: var(--coffee);
+      background: rgba(255, 253, 248, 0.68);
+      border-color: var(--line);
+    }
+
+    .btn-secondary:hover {
+      background: var(--white);
+      border-color: rgba(129, 95, 75, 0.38);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 72px 0 84px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.78fr) minmax(420px, 0.72fr);
+      gap: 58px;
+      align-items: center;
+    }
+
+    .hero-copy h1 {
+      margin: 18px 0 22px;
+      max-width: 720px;
+      font-family: "Noto Serif TC", serif;
+      font-size: clamp(2.65rem, 6vw, 6rem);
+      line-height: 1.06;
+      font-weight: 600;
+      color: var(--coffee);
+    }
+
+    .hero-copy h1 span {
+      color: var(--wood);
+    }
+
+    .hero-copy p {
+      max-width: 620px;
+      margin: 0;
+      color: rgba(45, 41, 37, 0.76);
+      font-size: 1.06rem;
+      line-height: 2;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .hero-note {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .note-chip {
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 253, 248, 0.62);
+      color: rgba(45, 41, 37, 0.72);
+      font-size: 0.86rem;
+    }
+
+    .hero-media {
+      position: relative;
+      min-height: 590px;
+    }
+
+    .hero-photo {
+      position: absolute;
+      overflow: hidden;
+      border-radius: 8px;
+      background: var(--linen);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-photo.main {
+      inset: 0 0 96px 68px;
+    }
+
+    .hero-photo.secondary {
+      left: 0;
+      bottom: 0;
+      width: 45%;
+      aspect-ratio: 4 / 5;
+      border: 10px solid var(--paper);
+    }
+
+    .hero-badge {
+      position: absolute;
+      right: 28px;
+      bottom: 42px;
+      width: 190px;
+      padding: 18px;
+      border: 1px solid rgba(255, 253, 248, 0.72);
+      border-radius: 8px;
+      background: rgba(53, 45, 40, 0.84);
+      color: var(--white);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-badge strong {
+      display: block;
+      font-family: "Noto Serif TC", serif;
+      font-size: 2.3rem;
+      line-height: 1;
+    }
+
+    .hero-badge span {
+      display: block;
+      margin-top: 8px;
+      color: rgba(255, 253, 248, 0.72);
+      font-size: 0.82rem;
+      line-height: 1.55;
+    }
+
+    .stats {
+      padding: 34px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 253, 248, 0.48);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .stat {
+      min-height: 128px;
+      padding: 24px;
+      background: rgba(251, 247, 239, 0.94);
+    }
+
+    .stat strong {
+      display: block;
+      font-family: "Noto Serif TC", serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1;
+      color: var(--coffee);
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 12px;
+      color: rgba(45, 41, 37, 0.66);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    section {
+      padding: 96px 0;
+    }
+
+    .split-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .audience-card,
+    .service-card,
+    .case-card,
+    .fit-card,
+    .faq details,
+    .video-card,
+    .form-panel,
+    .contact-panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 253, 248, 0.72);
+    }
+
+    .audience-card {
+      position: relative;
+      overflow: hidden;
+      padding: 34px;
+      min-height: 300px;
+    }
+
+    .audience-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(223, 201, 173, 0.38), transparent 46%);
+      pointer-events: none;
+    }
+
+    .audience-card.tenant::before {
+      background: linear-gradient(135deg, rgba(119, 131, 111, 0.22), transparent 46%);
+    }
+
+    .audience-card > * {
+      position: relative;
+    }
+
+    .audience-card h3,
+    .service-card h3,
+    .case-card h3,
+    .fit-card h3 {
+      margin: 0;
+      font-family: "Noto Serif TC", serif;
+      color: var(--coffee);
+      font-size: 1.55rem;
+    }
+
+    .audience-card p,
+    .service-card p,
+    .fit-card p {
+      margin: 16px 0 0;
+      color: rgba(45, 41, 37, 0.72);
+      line-height: 1.85;
+    }
+
+    .audience-card ul,
+    .service-card ul {
+      display: grid;
+      gap: 10px;
+      margin: 24px 0 30px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .audience-card li,
+    .service-card li {
+      display: flex;
+      gap: 10px;
+      color: rgba(45, 41, 37, 0.78);
+      line-height: 1.55;
+    }
+
+    .audience-card li::before,
+    .service-card li::before {
+      content: "";
+      flex: 0 0 auto;
+      width: 7px;
+      height: 7px;
+      margin-top: 9px;
+      border-radius: 50%;
+      background: var(--wood);
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .service-card {
+      padding: 28px;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(170, 123, 83, 0.36);
+      box-shadow: var(--shadow);
+    }
+
+    .service-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      margin-bottom: 22px;
+      border-radius: 8px;
+      color: var(--white);
+      background: var(--coffee);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .pain-section {
+      background: linear-gradient(180deg, rgba(53, 45, 40, 0.03), rgba(119, 131, 111, 0.08));
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .fit-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .fit-card {
+      padding: 24px;
+      background: rgba(255, 253, 248, 0.82);
+    }
+
+    .fit-card h3 {
+      font-size: 1.18rem;
+    }
+
+    .cases {
+      overflow: hidden;
+    }
+
+    .case-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .case-card {
+      overflow: hidden;
+      background: rgba(255, 253, 248, 0.8);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .case-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow);
+    }
+
+    .case-image {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: var(--linen);
+    }
+
+    .case-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.45s ease;
+    }
+
+    .case-carousel {
+      position: relative;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .case-carousel-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.36s ease;
+    }
+
+    .case-slide {
+      flex: 0 0 100%;
+      height: 100%;
+    }
+
+    .case-carousel-control {
+      position: absolute;
+      top: 50%;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(255, 253, 248, 0.62);
+      border-radius: 8px;
+      color: var(--white);
+      background: rgba(53, 45, 40, 0.58);
+      cursor: pointer;
+      transform: translateY(-50%);
+      backdrop-filter: blur(10px);
+    }
+
+    .case-carousel-control:hover {
+      background: rgba(53, 45, 40, 0.82);
+    }
+
+    .case-carousel-control.prev {
+      left: 12px;
+    }
+
+    .case-carousel-control.next {
+      right: 12px;
+    }
+
+    .case-dots {
+      position: absolute;
+      left: 50%;
+      bottom: 12px;
+      z-index: 2;
+      display: flex;
+      gap: 6px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      background: rgba(53, 45, 40, 0.46);
+      transform: translateX(-50%);
+      backdrop-filter: blur(10px);
+    }
+
+    .case-dot {
+      width: 7px;
+      height: 7px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255, 253, 248, 0.48);
+      cursor: pointer;
+    }
+
+    .case-dot.is-active {
+      width: 18px;
+      background: var(--white);
+    }
+
+    .case-card:hover .case-image img {
+      transform: scale(1.04);
+    }
+
+    .case-status {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      padding: 7px 10px;
+      border-radius: 8px;
+      color: var(--white);
+      background: rgba(53, 45, 40, 0.74);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .case-body {
+      padding: 22px;
+    }
+
+    .case-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0 18px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 8px;
+      color: var(--clay);
+      background: rgba(223, 201, 173, 0.34);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .case-card p {
+      margin: 0;
+      color: rgba(45, 41, 37, 0.72);
+      line-height: 1.72;
+      font-size: 0.95rem;
+    }
+
+    .case-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .text-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0;
+      border: 0;
+      color: var(--coffee);
+      background: transparent;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .text-button[disabled] {
+      color: rgba(45, 41, 37, 0.38);
+      cursor: not-allowed;
+    }
+
+    .address-tag {
+      max-width: 100%;
+      color: var(--coffee);
+      background: rgba(119, 131, 111, 0.18);
+    }
+
+    .renter-actions {
+      justify-content: flex-start;
+    }
+
+    .listing-link::after {
+      content: "\2197";
+      font-size: 0.8rem;
+      line-height: 1;
+    }
+
+
+    .process {
+      background: var(--coffee);
+      color: var(--white);
+    }
+
+    .process .section-head h2,
+    .process .eyebrow {
+      color: var(--white);
+    }
+
+    .process .section-head p {
+      color: rgba(255, 253, 248, 0.68);
+    }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 18px;
+      padding: 30px 0 6px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 62px;
+      left: 9%;
+      right: 9%;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(223, 201, 173, 0.2), rgba(223, 201, 173, 0.9), rgba(223, 201, 173, 0.2));
+    }
+
+    .step {
+      position: relative;
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+      min-height: 250px;
+      padding: 0 0 0;
+    }
+
+    .step::before {
+      content: "";
+      position: absolute;
+      top: 22px;
+      left: 50%;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(255, 253, 248, 0.42);
+      border-radius: 999px;
+      background: var(--coffee);
+      transform: translateX(-50%);
+      box-shadow: 0 0 0 10px rgba(223, 201, 173, 0.12);
+    }
+
+    .step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 54px;
+      right: -18px;
+      width: 22px;
+      height: 22px;
+      border-top: 2px solid rgba(223, 201, 173, 0.82);
+      border-right: 2px solid rgba(223, 201, 173, 0.82);
+      transform: rotate(45deg);
+    }
+
+    .step strong {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      width: 84px;
+      height: 84px;
+      margin: 0 auto 24px;
+      border: 1px solid rgba(255, 253, 248, 0.26);
+      border-radius: 999px;
+      color: var(--coffee);
+      background: var(--sand);
+      font-family: "Noto Serif TC", serif;
+      font-size: 1.45rem;
+      box-shadow: 0 20px 38px rgba(0, 0, 0, 0.18);
+    }
+
+    .step h3,
+    .step p {
+      border-left: 1px solid rgba(255, 253, 248, 0.14);
+      border-right: 1px solid rgba(255, 253, 248, 0.14);
+      background: rgba(255, 253, 248, 0.07);
+    }
+
+    .step h3 {
+      min-height: 56px;
+      margin: 0;
+      padding: 20px 20px 8px;
+      border-top: 1px solid rgba(255, 253, 248, 0.14);
+      border-radius: 8px 8px 0 0;
+      font-size: 1.08rem;
+      text-align: center;
+    }
+
+    .step p {
+      margin: 0;
+      padding: 0 20px 22px;
+      border-bottom: 1px solid rgba(255, 253, 248, 0.14);
+      border-radius: 0 0 8px 8px;
+      color: rgba(255, 253, 248, 0.72);
+      line-height: 1.75;
+      font-size: 0.92rem;
+      text-align: center;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .video-frame {
+      overflow: hidden;
+      border-radius: 8px;
+      background: var(--coffee);
+      aspect-ratio: 16 / 9;
+    }
+
+    .video-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .video-placeholder {
+      display: grid;
+      place-items: center;
+      width: 100%;
+      height: 100%;
+      padding: 30px;
+      color: #fffdf8;
+      background:
+        linear-gradient(135deg, rgba(53, 45, 40, 0.84), rgba(129, 95, 75, 0.7)),
+        linear-gradient(135deg, rgba(53, 45, 40, 0.9), rgba(119, 131, 111, 0.72));
+      text-align: center;
+    }
+
+    .video-placeholder strong {
+      display: block;
+      margin-bottom: 10px;
+      font-family: "Noto Serif TC", serif;
+      font-size: clamp(1.4rem, 4vw, 2.8rem);
+      line-height: 1.25;
+    }
+
+    .video-placeholder span {
+      display: block;
+      color: rgba(255, 253, 248, 0.72);
+      line-height: 1.7;
+    }
+
+    .video-card {
+      display: grid;
+      gap: 14px;
+      padding: 24px;
+    }
+
+    .video-item {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 14px;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(251, 247, 239, 0.62);
+    }
+
+    .video-thumb {
+      display: grid;
+      place-items: center;
+      aspect-ratio: 16 / 10;
+      border-radius: 8px;
+      color: var(--white);
+      background: var(--sage);
+      font-weight: 700;
+    }
+
+    .video-item h3 {
+      margin: 0 0 6px;
+      font-size: 0.98rem;
+    }
+
+    .video-item p {
+      margin: 0;
+      color: rgba(45, 41, 37, 0.62);
+      font-size: 0.84rem;
+      line-height: 1.5;
+    }
+
+    .form-section {
+      background: linear-gradient(180deg, rgba(223, 201, 173, 0.22), rgba(251, 247, 239, 0));
+      border-top: 1px solid var(--line);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(360px, 0.58fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .form-copy {
+      padding: 36px 0;
+    }
+
+    .form-copy h2 {
+      margin: 14px 0 18px;
+      font-family: "Noto Serif TC", serif;
+      font-size: clamp(2rem, 4vw, 4.2rem);
+      line-height: 1.18;
+      color: var(--coffee);
+    }
+
+    .form-copy p {
+      max-width: 620px;
+      margin: 0;
+      color: rgba(45, 41, 37, 0.72);
+      line-height: 1.9;
+    }
+
+    .form-panel {
+      padding: 24px;
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .lead-form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .field label {
+      color: rgba(45, 41, 37, 0.72);
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      min-height: 46px;
+      border: 1px solid rgba(53, 45, 40, 0.16);
+      border-radius: 8px;
+      padding: 11px 12px;
+      color: var(--ink);
+      background: #fffaf2;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .field textarea {
+      min-height: 94px;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: rgba(129, 95, 75, 0.58);
+      box-shadow: 0 0 0 4px rgba(170, 123, 83, 0.12);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-message {
+      display: none;
+      margin: 0;
+      padding: 12px;
+      border-radius: 8px;
+      color: #40513f;
+      background: rgba(119, 131, 111, 0.15);
+      line-height: 1.65;
+      font-size: 0.9rem;
+    }
+
+    .form-message.is-visible {
+      display: block;
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 0.5fr 1fr;
+      gap: 44px;
+      align-items: start;
+    }
+
+    .faq .section-title {
+      margin: 14px 0 18px;
+      font-family: "Noto Serif TC", serif;
+      font-size: clamp(2rem, 4vw, 4rem);
+      line-height: 1.18;
+      color: var(--coffee);
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .faq details {
+      padding: 0 20px;
+      background: rgba(255, 253, 248, 0.76);
+    }
+
+    .faq summary {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 0;
+      color: var(--coffee);
+      font-weight: 700;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .faq summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq summary::after {
+      content: "+";
+      flex: 0 0 auto;
+      color: var(--wood);
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .faq details[open] summary::after {
+      content: "-";
+    }
+
+    .faq details p {
+      margin: 0;
+      padding: 0 0 20px;
+      color: rgba(45, 41, 37, 0.7);
+      line-height: 1.8;
+    }
+
+    .contact {
+      padding: 72px 0;
+      background: var(--coffee);
+      color: var(--white);
+    }
+
+    .contact-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(360px, 0.56fr);
+      gap: 36px;
+      align-items: center;
+      padding: 38px;
+      border-color: rgba(255, 253, 248, 0.16);
+      background: rgba(255, 253, 248, 0.07);
+    }
+
+    .contact h2 {
+      margin: 0;
+      font-family: "Noto Serif TC", serif;
+      font-size: clamp(2rem, 4vw, 4.2rem);
+      line-height: 1.18;
+    }
+
+    .contact p {
+      margin: 18px 0 0;
+      color: rgba(255, 253, 248, 0.72);
+      line-height: 1.85;
+    }
+
+    .contact-buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 58px);
+      gap: 10px;
+      justify-content: end;
+    }
+
+    .contact-buttons .btn {
+      min-height: 52px;
+      color: var(--white);
+      border-color: rgba(255, 253, 248, 0.18);
+      background: rgba(255, 253, 248, 0.08);
+    }
+
+    .contact-buttons .btn:hover {
+      color: var(--coffee);
+      background: var(--sand);
+    }
+
+    .contact-buttons .icon-btn {
+      width: 58px;
+      height: 58px;
+      min-height: 58px;
+      padding: 0;
+      color: var(--white);
+      border-color: transparent;
+    }
+
+    .contact-buttons .icon-btn svg {
+      width: 36px;
+      height: 36px;
+      fill: currentColor;
+    }
+
+    .contact-buttons .icon-btn.facebook {
+      background: #1877f2;
+    }
+
+    .contact-buttons .icon-btn.instagram {
+      background: linear-gradient(135deg, #feda75 0%, #fa7e1e 28%, #d62976 58%, #962fbf 78%, #4f5bd5 100%);
+    }
+
+    .contact-buttons .icon-btn.youtube {
+      background: #ff0033;
+    }
+
+    .contact-buttons .icon-btn.line {
+      background: #06c755;
+    }
+
+    .contact-buttons .icon-btn:hover {
+      color: var(--white);
+      filter: brightness(1.08);
+      transform: translateY(-2px);
+    }
+
+    .contact-buttons .wide-btn {
+      grid-column: span 2;
+    }
+
+    .footer {
+      padding: 24px 0;
+      color: rgba(255, 253, 248, 0.55);
+      background: #211c18;
+      font-size: 0.84rem;
+    }
+
+    .footer .container {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: none;
+      padding: 24px;
+      background: rgba(33, 28, 24, 0.82);
+      backdrop-filter: blur(12px);
+    }
+
+    .lightbox.is-open {
+      display: grid;
+      place-items: center;
+    }
+
+    .lightbox-panel {
+      width: min(1080px, 100%);
+      max-height: min(760px, calc(100vh - 48px));
+      overflow: hidden;
+      border-radius: 8px;
+      background: var(--paper);
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.36);
+    }
+
+    .lightbox-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .lightbox-head h3 {
+      margin: 0;
+      color: var(--coffee);
+      font-family: "Noto Serif TC", serif;
+      font-size: 1.25rem;
+    }
+
+    .lightbox-close {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--white);
+      color: var(--coffee);
+      cursor: pointer;
+    }
+
+    .lightbox-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      max-height: calc(100vh - 148px);
+      overflow: auto;
+      padding: 14px;
+    }
+
+    .lightbox-gallery img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .mobile-cta {
+      position: fixed;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      z-index: 18;
+      display: none;
+      gap: 10px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(251, 247, 239, 0.9);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 18px 40px rgba(53, 45, 40, 0.18);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (max-width: 1060px) {
+      .hero-grid,
+      .form-grid,
+      .contact-panel,
+      .section-head,
+      .faq-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-media {
+        min-height: 520px;
+      }
+
+      .service-grid,
+      .case-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .fit-grid,
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .timeline {
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding: 8px 0 0 54px;
+      }
+
+      .timeline::before {
+        top: 28px;
+        bottom: 42px;
+        left: 28px;
+        right: auto;
+        width: 2px;
+        height: auto;
+        background: linear-gradient(180deg, rgba(223, 201, 173, 0.2), rgba(223, 201, 173, 0.9), rgba(223, 201, 173, 0.2));
+      }
+
+      .step {
+        min-height: auto;
+        padding-bottom: 22px;
+      }
+
+      .step::before {
+        top: 22px;
+        left: -26px;
+        width: 24px;
+        height: 24px;
+        transform: none;
+        box-shadow: 0 0 0 8px rgba(223, 201, 173, 0.12);
+      }
+
+      .step:not(:last-child)::after {
+        top: auto;
+        right: auto;
+        left: -17px;
+        bottom: 6px;
+        width: 14px;
+        height: 14px;
+        border-top: 0;
+        border-left: 2px solid rgba(223, 201, 173, 0.82);
+        border-bottom: 2px solid rgba(223, 201, 173, 0.82);
+        border-right: 0;
+        transform: rotate(-45deg);
+      }
+
+      .step strong {
+        width: 66px;
+        height: 66px;
+        margin: 0 0 14px;
+        font-size: 1.12rem;
+      }
+
+      .step h3,
+      .step p {
+        text-align: left;
+      }
+
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 780px) {
+      .container {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .site-header {
+        position: sticky;
+      }
+
+      .nav-links {
+        position: absolute;
+        left: 14px;
+        right: 14px;
+        top: 78px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 253, 248, 0.96);
+        box-shadow: var(--shadow);
+      }
+
+      .nav-links.is-open {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 13px 12px;
+        border-radius: 8px;
+      }
+
+      .nav-links a:hover {
+        background: var(--linen);
+      }
+
+      .nav-links a::after {
+        display: none;
+      }
+
+      .nav-actions .desktop-only {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .hero {
+        padding: 48px 0 62px;
+      }
+
+      .hero-grid {
+        gap: 34px;
+      }
+
+      .hero-copy p {
+        font-size: 1rem;
+      }
+
+      .hero-media {
+        min-height: auto;
+        display: grid;
+        gap: 12px;
+      }
+
+      .hero-photo {
+        position: relative;
+      }
+
+      .hero-photo.main {
+        inset: auto;
+        aspect-ratio: 4 / 3;
+      }
+
+      .hero-photo.secondary {
+        display: none;
+      }
+
+      .hero-badge {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        width: 100%;
+        background: var(--coffee);
+      }
+
+      .stats-grid,
+      .split-panel,
+      .service-grid,
+      .case-grid,
+      .fit-grid,
+      .contact-buttons,
+      .form-row,
+      .lightbox-gallery {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 72px 0;
+      }
+
+      .section-head {
+        gap: 18px;
+        margin-bottom: 32px;
+      }
+
+      .audience-card,
+      .form-panel,
+      .contact-panel {
+        padding: 22px;
+      }
+
+      .mobile-cta {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .mobile-cta .btn {
+        min-height: 44px;
+        padding: 0 12px;
+        font-size: 0.82rem;
+      }
+
+      body {
+        padding-bottom: 78px;
+      }
+    }
+  </style>
 </head>
-<body class="selection:bg-[#E6D5C3]">
-
-    <nav class="sticky top-0 z-50 bg-[#FDFBF7]/80 backdrop-blur-md border-b border-[#EAE4DA] px-6 py-4 md:px-12 flex justify-between items-center">
-        <div class="text-xl font-bold tracking-wider text-[#C2A68E]">Chome好室寓所</div>
-        <div class="hidden md:flex space-x-8 text-sm tracking-widest text-[#70655E]">
-            <a href="#" class="hover:text-[#C2A68E] transition">作品展示</a>
-            <a href="#" class="hover:text-[#C2A68E] transition">關於我們</a>
-            <a href="#" class="hover:text-[#C2A68E] transition">聯絡好室</a>
-        </div>
-        <button class="md:hidden text-[#70655E]">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"" />
-            </svg>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="#top" class="brand" aria-label="Chome 首頁">
+        <span class="brand-mark">C</span>
+        <span>Chome<small>包租代管與軟裝加值</small></span>
+      </a>
+      <nav class="nav-links" id="navLinks" aria-label="主要導覽">
+        <a href="#services">服務</a>
+        <a href="#cases">物件</a>
+        <a href="#videos">短影音</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">聯絡</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-primary desktop-only" href="#assessment">房東評估</a>
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="開啟選單" aria-expanded="false" aria-controls="navLinks">
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
-    </nav>
+      </div>
+    </div>
+  </header>
 
-    <header class="max-w-7xl mx-auto px-6 py-12 md:py-24 grid md:grid-cols-2 gap-12 items-center">
-        <div class="space-y-6">
-            <span class="inline-block bg-[#EFEBE4] text-[#8C7667] text-xs font-medium tracking-widest px-3 py-1 rounded">萬華區西園路二段</span>
-            <h1 class="text-3xl md:text-5xl font-light tracking-tight leading-tight">
-                時光沉澱的 <br><span class="font-normal text-[#C2A68E]">溫潤北歐極簡寓所</span>
-            </h1>
-            <p class="text-[#70655E] font-light leading-relaxed tracking-wide text-sm md:text-base">
-                這不是一次單純的裝修，而是一場關於生活的溫暖提案。我們保留老屋最迷人的採光，抹去冰冷的死白，換上帶著奶油感與木質調的暖色層次。讓下班回家的每一步，都走進極簡的療癒宇宙。
-            </p>
-            <div class="pt-4">
-                <a href="#gallery" class="inline-block bg-[#3E3835] text-[#FDFBF7] text-xs tracking-widest px-8 py-4 rounded hover:bg-[#C2A68E] transition duration-300">導覽完工實景</a>
-            </div>
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <span class="eyebrow">Rental care with warm design</span>
+          <h1>讓房子被好好照顧，也被<span>好好喜歡。</span></h1>
+          <p>Chome 以包租代管為核心，整合招租、租務管理、修繕協調與軟裝加值。替房東降低空屋與管理壓力，也讓租客遇見更舒適、更有生活感的家。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#assessment">填寫房東評估</a>
+            <a class="btn btn-secondary" href="#cases">瀏覽物件案例</a>
+          </div>
+          <div class="hero-note" aria-label="服務重點">
+            <span class="note-chip">包租代管</span>
+            <span class="note-chip">招租媒合</span>
+            <span class="note-chip">租務維護</span>
+            <span class="note-chip">軟裝提升</span>
+          </div>
         </div>
-        <div class="aspect-4/3 bg-[#EFEBE4] rounded-2xl overflow-hidden shadow-sm relative group">
-            <div class="absolute inset-0 flex items-center justify-center text-[#8C7667] font-light text-sm">
-                <div class="aspect-4/3 bg-[#EFEBE4] rounded-2xl overflow-hidden shadow-sm relative group">
-  <!-- 這是新的圖片標籤 -->
-  <img src="/assets/images/photo_1.png" alt="萬華完工照-客廳" class="w-full h-full object-cover">
-</div>
-            </div>
-            </div>
-    </header>
-
-    <section class="bg-[#F5F0E6] py-16 px-6 md:px-12 border-y border-[#EAE4DA]">
-        <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div class="space-y-2">
-                <div class="text-xs text-[#8C7667] tracking-widest">風格主張</div>
-                <div class="text-base font-medium">北歐極簡 Nordic</div>
-            </div>
-            <div class="space-y-2">
-                <div class="text-xs text-[#8C7667] tracking-widest">色彩調性</div>
-                <div class="text-base font-medium">溫馨暖色調 Cream</div>
-            </div>
-            <div class="space-y-2">
-                <div class="text-xs text-[#8C7667] tracking-widest">空間核心</div>
-                <div class="text-base font-medium">光影層次搭配</div>
-            </div>
-            <div class="space-y-2">
-                <div class="text-xs text-[#8C7667] tracking-widest">軟裝企劃</div>
-                <div class="text-base font-medium">Chome 生活提案</div>
-            </div>
+        <div class="hero-media reveal">
+          <figure class="hero-photo main">
+            <img id="heroMainImage" src="assets/images/property-002-wenshan-muzha/room-a/image-001.jpg" alt="Chome 經手物件的室內空間照片">
+          </figure>
+          <figure class="hero-photo secondary">
+            <img id="heroSecondaryImage" src="assets/images/property-007-wanhua-xiyuan/completed/image-001.png" alt="Chome 整理後的物件空間細節">
+          </figure>
+          <div class="hero-badge">
+            <strong>7</strong>
+            <span>間物件案例資料架構已就緒，適合持續新增作品與招租內容。</span>
+          </div>
         </div>
+      </div>
     </section>
 
-    <main id="gallery" class="max-w-7xl mx-auto px-6 py-16 md:py-24 space-y-16">
-        <div class="text-center space-y-2">
-            <h2 class="text-xs tracking-[0.3em] uppercase text-[#8C7667]">Space Gallery</h2>
-            <p class="text-xl font-light">空間細節・沉浸體驗</p>
+    <section class="audiences">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Two paths</span>
+            <h2>房東放心委託，租客安心入住。</h2>
+          </div>
+          <p>首頁以房東轉換為主，租客入口作為輔助分流。不同需求的人進站後，都能快速找到下一步。</p>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <div class="space-y-3 group">
-                <div class="aspect-3/2 bg-[#EFEBE4] rounded-xl overflow-hidden relative">
-                    <div class="absolute inset-0 flex items-center justify-center text-[#8C7667] text-xs">[ 暖色角落檯燈與間接光影 ]</div>
-                    </div>
-                <div class="flex justify-between items-center px-1">
-                    <h3 class="text-sm font-medium">01 / 暖陽角落</h3>
-                    <span class="text-xs text-[#8C7667] font-light">關掉主燈後的賀爾蒙光影</span>
-                </div>
-            </div>
-
-            <div class="space-y-3 group">
-                <div class="aspect-1/1 bg-[#EFEBE4] rounded-xl overflow-hidden relative">
-                    <div class="absolute inset-0 flex items-center justify-center text-[#8C7667] text-xs">[ 木質調臥室與純白棉麻 ]</div>
-                    </div>
-                <div class="flex justify-between items-center px-1">
-                    <h3 class="text-sm font-medium">02 / 靈魂避難所</h3>
-                    <span class="text-xs text-[#8C7667] font-light">極簡奶油系共生臥室</span>
-                </div>
-            </div>
-
-            <div class="space-y-3 group">
-                <div class="aspect-3/4 bg-[#EFEBE4] rounded-xl overflow-hidden relative">
-                    <div class="absolute inset-0 flex items-center justify-center text-[#8C7667] text-xs">[ 客廳綠植與沉穩地毯 ]</div>
-                    </div>
-                <div class="flex justify-between items-center px-1">
-                    <h3 class="text-sm font-medium">03 / 生活提案</h3>
-                    <span class="text-xs text-[#8C7667] font-light">不到$3000的高級感包裝</span>
-                </div>
-            </div>
-
+        <div class="split-panel">
+          <article class="audience-card reveal">
+            <h3>我是房東</h3>
+            <p>想降低空屋期、找合適租客，或希望有人協助修繕、收租、日常溝通。</p>
+            <ul>
+              <li>先評估物件狀態與出租條件</li>
+              <li>建議招租定價與整理方向</li>
+              <li>代為處理租務、修繕與入住後溝通</li>
+            </ul>
+            <a class="btn btn-primary" href="#assessment">開始評估</a>
+          </article>
+          <article class="audience-card tenant reveal tenant">
+            <h3>我是租客</h3>
+            <p>希望看見真實物件照片、理解空間風格，並透過社群追蹤最新釋出的房源。</p>
+            <ul>
+              <li>瀏覽整理後的住宅案例</li>
+              <li>透過短影音快速感受空間</li>
+              <li>使用聯絡按鈕追蹤最新資訊</li>
+            </ul>
+            <a class="btn btn-secondary" href="#cases">看物件案例</a>
+          </article>
         </div>
-    </main>
+      </div>
+    </section>
 
-    <footer class="bg-[#3E3835] text-[#EFEBE4] py-12 px-6 text-center text-xs tracking-widest space-y-4">
-        <p class="font-normal text-sm text-[#FDFBF7]">來好室，有好事。</p>
-        <p class="font-light opacity-60">© 2026 Chome好室寓所. All Rights Reserved.</p>
-    </footer>
+    <section class="pain-section">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Why Chome</span>
+            <h2>把房東最耗神的事，整理成可管理的流程。</h2>
+          </div>
+          <p>空屋、租客篩選、修繕溝通、物件整理與租金穩定，往往不是單一問題。Chome 的工作是把它們一起看，讓物件更容易被理解、被信任、被選擇。</p>
+        </div>
+        <div class="fit-grid">
+          <article class="fit-card reveal">
+            <h3>外地屋主</h3>
+            <p>不方便頻繁到場，需要有人協助現場狀況與租務溝通。</p>
+          </article>
+          <article class="fit-card reveal">
+            <h3>忙碌房東</h3>
+            <p>希望出租流程更省心，不想被瑣碎修繕與訊息追著跑。</p>
+          </article>
+          <article class="fit-card reveal">
+            <h3>新成屋交屋</h3>
+            <p>需要從空屋整理、家具配置到招租呈現一起規劃。</p>
+          </article>
+          <article class="fit-card reveal">
+            <h3>出租卡關</h3>
+            <p>照片、定價或空間狀態需要調整，提升租客第一眼好感。</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
+    <section class="services" id="services">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Services</span>
+            <h2>從出租前整理，到入住後管理。</h2>
+          </div>
+          <p>服務設計以房東需求為核心，也保留軟裝加值能力，讓物件不只被管理，也能被更好地呈現。</p>
+        </div>
+        <div class="service-grid">
+          <article class="service-card reveal">
+            <span class="service-number">01</span>
+            <h3>包租代管</h3>
+            <p>協助房東規劃委託方式，降低日常管理負擔。</p>
+            <ul>
+              <li>租務窗口整合</li>
+              <li>入住後管理</li>
+              <li>定期狀態追蹤</li>
+            </ul>
+          </article>
+          <article class="service-card reveal">
+            <span class="service-number">02</span>
+            <h3>招租媒合</h3>
+            <p>根據物件條件、地段與客群，調整出租呈現與溝通重點。</p>
+            <ul>
+              <li>租客需求整理</li>
+              <li>物件亮點包裝</li>
+              <li>看屋與媒合協助</li>
+            </ul>
+          </article>
+          <article class="service-card reveal">
+            <span class="service-number">03</span>
+            <h3>租務管理</h3>
+            <p>處理合約、收租提醒、訊息溝通與日常問題回報。</p>
+            <ul>
+              <li>合約與入住事項</li>
+              <li>租金與帳務提醒</li>
+              <li>租客溝通協調</li>
+            </ul>
+          </article>
+          <article class="service-card reveal">
+            <span class="service-number">04</span>
+            <h3>修繕協調</h3>
+            <p>協助確認問題、安排處理與回報進度，避免溝通斷點。</p>
+            <ul>
+              <li>問題初步判斷</li>
+              <li>修繕資源協調</li>
+              <li>完工狀態確認</li>
+            </ul>
+          </article>
+          <article class="service-card reveal">
+            <span class="service-number">05</span>
+            <h3>物件整理</h3>
+            <p>出租前整理拍攝動線、清潔細節與空間秩序。</p>
+            <ul>
+              <li>空間狀態盤點</li>
+              <li>出租前整理建議</li>
+              <li>照片呈現優化</li>
+            </ul>
+          </article>
+          <article class="service-card reveal">
+            <span class="service-number">06</span>
+            <h3>軟裝加值</h3>
+            <p>以家具、窗簾、織品與燈飾補足空間溫度，提高出租吸引力。</p>
+            <ul>
+              <li>風格定位</li>
+              <li>家具與傢飾建議</li>
+              <li>入住感提升</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cases" id="cases">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Selected homes</span>
+            <h2>物件不只被出租，也值得被好好展示。</h2>
+          </div>
+          <p>每間物件以封面、風格標籤、空間亮點與照片集呈現。現有照片先作為第一間完整案例，其餘案例保留正式結構，方便補齊資料後上線。</p>
+        </div>
+        <div class="case-grid" id="caseGrid" aria-label="精選物件案例"></div>
+      </div>
+    </section>
+
+    <section class="process">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Process</span>
+            <h2>用五個步驟，讓委託更清楚。</h2>
+          </div>
+          <p>從初步資料到現場了解，再到方案、簽約與後續管理，每一步都讓房東知道現在進行到哪裡。</p>
+        </div>
+        <div class="timeline">
+          <article class="step reveal">
+            <strong>01</strong>
+            <h3>初步評估</h3>
+            <p>房東填寫物件資料，先了解區域、坪數、狀態與期待服務。</p>
+          </article>
+          <article class="step reveal">
+            <strong>02</strong>
+            <h3>現場了解</h3>
+            <p>確認空間現況、設備、修繕需求與出租前整理方向。</p>
+          </article>
+          <article class="step reveal">
+            <strong>03</strong>
+            <h3>方案建議</h3>
+            <p>依物件條件提出代管、招租、整理或軟裝加值建議。</p>
+          </article>
+          <article class="step reveal">
+            <strong>04</strong>
+            <h3>簽約管理</h3>
+            <p>確認委託內容與服務範圍，建立後續溝通與回報節奏。</p>
+          </article>
+          <article class="step reveal">
+            <strong>05</strong>
+            <h3>招租維護</h3>
+            <p>進行物件呈現、租客媒合、入住協調與租務管理。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="videos" id="videos">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Short videos</span>
+            <h2>用短影音，看見物件的真實生活感。</h2>
+          </div>
+          <p>直接嵌入 Chome YouTube 頻道影片，讓物件走訪、軟裝前後、房東 FAQ 與租客入住提醒成為官網信任的一部分。</p>
+        </div>
+        <div class="video-grid">
+          <div class="video-frame reveal" id="youtubeEmbed" aria-label="Chome YouTube 頻道影片">
+            <div class="video-placeholder">
+              <span>
+                <strong>Chome YouTube 頻道</strong>
+                <span>本機檔案預覽無法直接嵌入 YouTube；正式網站會自動顯示頻道影片。</span>
+                <a class="btn btn-secondary" href="https://www.youtube.com/channel/UCiBXMoMY0IQpuu6G8-kPoDw" target="_blank" rel="noreferrer">前往 YouTube 頻道</a>
+              </span>
+            </div>
+          </div>
+          <aside class="video-card reveal" aria-label="短影音主題">
+            <a class="video-item" href="#contact">
+              <span class="video-thumb">01</span>
+              <span>
+                <h3>物件走訪</h3>
+                <p>用 30 秒看採光、格局與家具配置。</p>
+              </span>
+            </a>
+            <a class="video-item" href="#contact">
+              <span class="video-thumb">02</span>
+              <span>
+                <h3>軟裝加值</h3>
+                <p>看整理前後如何改變租客第一印象。</p>
+              </span>
+            </a>
+            <a class="video-item" href="#faq">
+              <span class="video-thumb">03</span>
+              <span>
+                <h3>房東 FAQ</h3>
+                <p>用短影片回答費用、修繕與委託流程。</p>
+              </span>
+            </a>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="form-section" id="assessment">
+      <div class="container form-grid">
+        <div class="form-copy reveal">
+          <span class="eyebrow">Landlord assessment</span>
+          <h2>先留下物件資訊，我們再協助判斷下一步。</h2>
+          <p>填寫物件區域、屋況與希望服務後，Chome 會依你的資訊初步判斷適合的委託方式，再安排後續聯繫。</p>
+        </div>
+        <div class="form-panel reveal">
+          <form class="lead-form" id="leadForm">
+            <div class="form-row">
+              <div class="field">
+                <label for="ownerName">房東姓名</label>
+                <input id="ownerName" name="ownerName" type="text" autocomplete="name" required>
+              </div>
+              <div class="field">
+                <label for="phone">聯絡電話</label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" required>
+              </div>
+            </div>
+            <div class="field">
+              <label for="contactLine">LINE ID 或 Email</label>
+              <input id="contactLine" name="contactLine" type="text" autocomplete="email">
+            </div>
+            <div class="field">
+              <label for="address">物件地址或區域</label>
+              <input id="address" name="address" type="text" placeholder="例如：台中西屯、台北中山、新北板橋" required>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="layout">房型 / 坪數</label>
+                <input id="layout" name="layout" type="text" placeholder="例如：2 房 1 廳 / 24 坪">
+              </div>
+              <div class="field">
+                <label for="status">目前狀態</label>
+                <select id="status" name="status">
+                  <option>空屋</option>
+                  <option>出租中</option>
+                  <option>需整理</option>
+                  <option>需估租</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label for="serviceNeed">希望服務</label>
+              <select id="serviceNeed" name="serviceNeed">
+                <option>包租</option>
+                <option>代管</option>
+                <option>招租</option>
+                <option>軟裝整理</option>
+                <option>其他</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="message">補充說明</label>
+              <textarea id="message" name="message" placeholder="可補充屋況、家具設備、預計出租時間或其他需求"></textarea>
+            </div>
+            <p class="form-message" id="formMessage">資料已整理。請透過下方 LINE、電話或 Email 聯絡 Chome，正式表單串接後即可直接送出。</p>
+            <button class="btn btn-primary" type="submit">送出評估資料</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq" id="faq">
+      <div class="container faq-grid">
+        <div class="reveal">
+          <span class="eyebrow">FAQ</span>
+          <h2 class="section-title">常見問題</h2>
+          <p>把房東與租客最常問的事情先說清楚，聯繫時就能更快進入實際評估。</p>
+        </div>
+        <div class="faq-list reveal">
+          <details open>
+            <summary>包租與代管差在哪裡？</summary>
+            <p>包租通常由管理方承接一定出租責任，代管則偏向協助房東處理招租、租務、修繕與租客溝通。實際方案會依物件狀況與房東期待確認。</p>
+          </details>
+          <details>
+            <summary>服務費用怎麼計算？</summary>
+            <p>費用會依服務範圍、物件狀態與管理需求而定。建議先填寫評估表，Chome 會依資料提供適合的合作方式。</p>
+          </details>
+          <details>
+            <summary>修繕問題由誰處理？</summary>
+            <p>Chome 可協助初步確認問題、安排修繕溝通與進度回報。是否由房東負擔費用，會依設備責任與合約內容判斷。</p>
+          </details>
+          <details>
+            <summary>會協助篩選租客嗎？</summary>
+            <p>會。招租媒合會依物件定位與房東需求協助溝通，降低不適合的看屋與入住風險。</p>
+          </details>
+          <details>
+            <summary>空屋需要整理或軟裝嗎？</summary>
+            <p>不一定。若物件狀態已佳，只需整理拍攝與重點呈現；若空間缺少生活感，軟裝加值能提升照片吸引力與租客想像。</p>
+          </details>
+          <details>
+            <summary>租客可以從官網看最新房源嗎？</summary>
+            <p>官網會展示精選案例與社群入口。最新釋出的房源與短影音內容，建議透過聯絡按鈕追蹤 Chome 社群。</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="container contact-panel reveal">
+        <div>
+          <h2>有物件想委託，或想追蹤最新房源？</h2>
+        </div>
+        <div class="contact-buttons" aria-label="聯絡 Chome">
+          <a class="btn icon-btn facebook" href="https://www.facebook.com/chometaiwan?locale=zh_TW" target="_blank" rel="noreferrer" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8.7h2.2V5.2c-.4-.1-1.7-.2-3.2-.2-3.2 0-5.4 1.9-5.4 5.5v3.1H4v3.9h3.6V24H12v-6.5h3.5l.6-3.9H12v-2.7c0-1.1.3-2.2 2-2.2Z"/></svg>
+          </a>
+          <a class="btn icon-btn instagram" href="https://www.instagram.com/chometaiwan1/" target="_blank" rel="noreferrer" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.3 2h9.4A5.3 5.3 0 0 1 22 7.3v9.4a5.3 5.3 0 0 1-5.3 5.3H7.3A5.3 5.3 0 0 1 2 16.7V7.3A5.3 5.3 0 0 1 7.3 2Zm0 2A3.3 3.3 0 0 0 4 7.3v9.4A3.3 3.3 0 0 0 7.3 20h9.4a3.3 3.3 0 0 0 3.3-3.3V7.3A3.3 3.3 0 0 0 16.7 4H7.3Zm4.7 3.8a4.2 4.2 0 1 1 0 8.4 4.2 4.2 0 0 1 0-8.4Zm0 2a2.2 2.2 0 1 0 0 4.4 2.2 2.2 0 0 0 0-4.4Zm4.6-2.9a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/></svg>
+          </a>
+          <a class="btn icon-btn youtube" href="https://www.youtube.com/channel/UCiBXMoMY0IQpuu6G8-kPoDw" target="_blank" rel="noreferrer" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 7.1s-.2-1.7-.9-2.4c-.9-.9-1.9-.9-2.4-1C16.8 3.5 12 3.5 12 3.5s-4.8 0-8.2.2c-.5.1-1.5.1-2.4 1C.7 5.4.5 7.1.5 7.1S.3 9.1.3 11.2v1.9c0 2.1.2 4.1.2 4.1s.2 1.7.9 2.4c.9.9 2.1.9 2.6 1 1.9.2 8 .2 8 .2s4.8 0 8.2-.2c.5-.1 1.5-.1 2.4-1 .7-.7.9-2.4.9-2.4s.2-2 .2-4.1v-1.9c0-2.1-.2-4.1-.2-4.1ZM9.8 15.2V8.1l6.2 3.6-6.2 3.5Z"/></svg>
+          </a>
+          <a class="btn icon-btn line" href="https://lin.ee/QcS9ss8" target="_blank" rel="noreferrer" aria-label="LINE @chome77777">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.1 8.2 7.8.3.1.7.2.8.5.1.3.1.6 0 .9l-.2 1.1c-.1.3-.2 1.1.9.6 1.1-.5 5.7-3.4 7.8-5.8A7.4 7.4 0 0 0 22 11c0-4.4-4.5-8-10-8Zm-3.7 10.5H5.7V8.2h1.1v4.3h1.5v1Zm2.1 0H9.3V8.2h1.1v5.3Zm5.6 0h-1.1l-2.2-3v3h-1.1V8.2h1.1l2.2 3v-3H16v5.3Zm3.1-4.3h-1.6v1h1.6v1h-1.6v1.3h1.6v1h-2.7V8.2h2.7v1Z"/></svg>
+          </a>
+          <a class="btn wide-btn" href="tel:+886222766699">02-2276-6699</a>
+          <a class="btn wide-btn" href="mailto:chometaiwan1@gmail.com">Email</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <span>© 2026 Chome. All Rights Reserved.</span>
+      <span>www.chometaiwan.com</span>
+    </div>
+  </footer>
+
+  <div class="mobile-cta" aria-label="快速操作">
+    <a class="btn btn-primary" href="#assessment">房東評估</a>
+    <a class="btn btn-secondary" href="#cases">看物件</a>
+  </div>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle">
+    <div class="lightbox-panel">
+      <div class="lightbox-head">
+        <h3 id="lightboxTitle">案例照片</h3>
+        <button class="lightbox-close" id="lightboxClose" type="button" aria-label="關閉照片集">×</button>
+      </div>
+      <div class="lightbox-gallery" id="lightboxGallery"></div>
+    </div>
+  </div>
+
+  <script>
+    const imageBase = "assets/images/";
+    const encodeAssetPath = (path) => imageBase + path.split("/").map(encodeURIComponent).join("/");
+    const cases = [
+      {
+            "title": "文山羅斯福路六段",
+            "status": "文山區",
+            "location": "文山區羅斯福路六段",
+            "cover": "property-001-wenshan-roosevelt/room-2a/image-001.jpg",
+            "tags": [
+                  "採光臥室",
+                  "機能生活圈",
+                  "整理完成"
+            ],
+            "description": "近文山生活圈，房內配置以清爽家具與明亮採光為主，適合重視舒適與通勤便利的租客。",
+            "rentUrl": "",
+            "photos": [
+                  "property-001-wenshan-roosevelt/room-2a/image-001.jpg",
+                  "property-001-wenshan-roosevelt/room-2a/image-002.png",
+                  "property-001-wenshan-roosevelt/room-2a/image-003.jpg",
+                  "property-001-wenshan-roosevelt/room-2a/image-004.png",
+                  "property-001-wenshan-roosevelt/room-2a/image-005.jpg",
+                  "property-001-wenshan-roosevelt/room-2a/image-006.png",
+                  "property-001-wenshan-roosevelt/room-2a/image-007.jpg",
+                  "property-001-wenshan-roosevelt/room-2a/image-008.jpg",
+                  "property-001-wenshan-roosevelt/room-2a/image-009.jpg",
+                  "property-001-wenshan-roosevelt/room-2a/image-010.jpg",
+                  "property-001-wenshan-roosevelt/room-2b/image-003.jpg",
+                  "property-001-wenshan-roosevelt/common/image-001.jpg",
+                  "property-001-wenshan-roosevelt/room-2b/image-001.png",
+                  "property-001-wenshan-roosevelt/room-2b/image-002.png",
+                  "property-001-wenshan-roosevelt/room-2b/image-004.jpg",
+                  "property-001-wenshan-roosevelt/room-2b/image-005.jpg",
+                  "property-001-wenshan-roosevelt/room-2b/image-006.png",
+                  "property-001-wenshan-roosevelt/room-3a/image-001.png",
+                  "property-001-wenshan-roosevelt/room-3a/image-002.png",
+                  "property-001-wenshan-roosevelt/room-3a/image-003.jpg",
+                  "property-001-wenshan-roosevelt/room-3a/image-004.jpg",
+                  "property-001-wenshan-roosevelt/room-3a/image-005.jpg",
+                  "property-001-wenshan-roosevelt/room-3a/image-006.jpg",
+                  "property-001-wenshan-roosevelt/room-3a/image-007.jpg",
+                  "property-001-wenshan-roosevelt/room-3a/image-008.jpg",
+                  "property-001-wenshan-roosevelt/room-3a/image-009.jpg",
+                  "property-001-wenshan-roosevelt/room-3a/image-010.jpg",
+                  "property-001-wenshan-roosevelt/room-3a/image-011.png",
+                  "property-001-wenshan-roosevelt/room-3b/image-001.png",
+                  "property-001-wenshan-roosevelt/room-3b/image-002.png",
+                  "property-001-wenshan-roosevelt/room-3b/image-003.jpg",
+                  "property-001-wenshan-roosevelt/room-3b/image-004.jpg"
+            ]
+      },
+      {
+            "title": "文山木柵路一段",
+            "status": "文山區",
+            "location": "文山區木柵路一段",
+            "cover": "property-002-wenshan-muzha/room-a/image-001.jpg",
+            "tags": [
+                  "A 房展示",
+                  "木質簡約",
+                  "獨立空間"
+            ],
+            "description": "以 A room 作為主要展示，空間色調乾淨柔和，保留家具與收納的實用感。",
+            "rentUrl": "",
+            "photos": [
+                  "property-002-wenshan-muzha/room-a/image-001.jpg",
+                  "property-002-wenshan-muzha/room-a/image-002.jpg",
+                  "property-002-wenshan-muzha/room-a/image-003.jpg",
+                  "property-002-wenshan-muzha/room-a/image-004.jpg",
+                  "property-002-wenshan-muzha/room-a/image-005.jpg",
+                  "property-002-wenshan-muzha/room-a/image-006.jpg",
+                  "property-002-wenshan-muzha/room-a/image-007.jpg",
+                  "property-002-wenshan-muzha/room-a/image-008.jpg",
+                  "property-002-wenshan-muzha/room-a/image-009.jpg",
+                  "property-002-wenshan-muzha/room-a/image-010.jpg",
+                  "property-002-wenshan-muzha/common/image-001.jpg",
+                  "property-002-wenshan-muzha/common/image-002.jpg",
+                  "property-002-wenshan-muzha/common/image-003.jpg",
+                  "property-002-wenshan-muzha/common/image-004.jpg",
+                  "property-002-wenshan-muzha/common/image-005.jpg",
+                  "property-002-wenshan-muzha/common/image-006.jpg",
+                  "property-002-wenshan-muzha/room-b/image-001.jpg",
+                  "property-002-wenshan-muzha/room-b/image-002.jpg",
+                  "property-002-wenshan-muzha/room-b/image-003.jpg",
+                  "property-002-wenshan-muzha/room-b/image-004.jpg",
+                  "property-002-wenshan-muzha/room-b/image-005.jpg",
+                  "property-002-wenshan-muzha/room-c/image-001.jpg",
+                  "property-002-wenshan-muzha/room-c/image-002.jpg",
+                  "property-002-wenshan-muzha/room-c/image-003.jpg",
+                  "property-002-wenshan-muzha/room-c/image-004.jpg",
+                  "property-002-wenshan-muzha/room-c/image-005.jpg",
+                  "property-002-wenshan-muzha/room-d/image-001.jpg",
+                  "property-002-wenshan-muzha/room-d/image-002.jpg",
+                  "property-002-wenshan-muzha/room-d/image-003.jpg",
+                  "property-002-wenshan-muzha/room-d/image-004.jpg",
+                  "property-002-wenshan-muzha/room-d/image-005.jpg",
+                  "property-002-wenshan-muzha/room-d/image-006.jpg"
+            ]
+      },
+      {
+            "title": "新莊新泰路",
+            "status": "新莊區",
+            "location": "新莊區新泰路",
+            "cover": "property-003-xinzhuang-xintai/room-3a/image-001.jpg",
+            "tags": [
+                  "A 房展示",
+                  "清爽桌面",
+                  "生活機能"
+            ],
+            "description": "以單房視角呈現居住尺度，搭配簡約家具、柔和燈光與日常收納。",
+            "rentUrl": "",
+            "photos": [
+                  "property-003-xinzhuang-xintai/room-3a/image-001.jpg",
+                  "property-003-xinzhuang-xintai/room-3a/image-002.jpg",
+                  "property-003-xinzhuang-xintai/room-3a/image-003.jpg",
+                  "property-003-xinzhuang-xintai/room-3a/image-004.jpg",
+                  "property-003-xinzhuang-xintai/room-3a/image-005.jpg",
+                  "property-003-xinzhuang-xintai/room-3a/image-006.jpg",
+                  "property-003-xinzhuang-xintai/3C/image-001.jpg",
+                  "property-003-xinzhuang-xintai/3C/image-002.jpg",
+                  "property-003-xinzhuang-xintai/3C/image-003.jpg",
+                  "property-003-xinzhuang-xintai/3C/image-004.jpg",
+                  "property-003-xinzhuang-xintai/3D/image-001.jpg",
+                  "property-003-xinzhuang-xintai/3D/image-002.jpg",
+                  "property-003-xinzhuang-xintai/3D/image-003.jpg",
+                  "property-003-xinzhuang-xintai/3D/image-004.jpg",
+                  "property-003-xinzhuang-xintai/3D/image-005.jpg",
+                  "property-003-xinzhuang-xintai/common-3f/image-001.jpg",
+                  "property-003-xinzhuang-xintai/common-3f/image-002.jpg",
+                  "property-003-xinzhuang-xintai/common-3f/image-003.jpg",
+                  "property-003-xinzhuang-xintai/common-3f/image-004.jpg",
+                  "property-003-xinzhuang-xintai/common-3f/image-005.jpg",
+                  "property-003-xinzhuang-xintai/room-3b/image-001.jpg",
+                  "property-003-xinzhuang-xintai/room-3b/image-002.jpg",
+                  "property-003-xinzhuang-xintai/room-3b/image-003.jpg",
+                  "property-003-xinzhuang-xintai/room-3b/image-004.jpg",
+                  "property-003-xinzhuang-xintai/room-3b/image-005.jpg",
+                  "property-003-xinzhuang-xintai/unit-4f/image-001.jpg",
+                  "property-003-xinzhuang-xintai/unit-4f/image-002.jpg",
+                  "property-003-xinzhuang-xintai/unit-4f/image-003.jpg",
+                  "property-003-xinzhuang-xintai/unit-4f/image-004.jpg",
+                  "property-003-xinzhuang-xintai/unit-4f/image-005.jpg",
+                  "property-003-xinzhuang-xintai/unit-4f/image-006.jpg",
+                  "property-003-xinzhuang-xintai/unit-4f/image-007.jpg",
+                  "property-003-xinzhuang-xintai/unit-4f/image-008.jpg",
+                  "property-003-xinzhuang-xintai/unit-4f/image-009.jpg",
+                  "property-003-xinzhuang-xintai/unit-4f/image-010.jpg",
+                  "property-003-xinzhuang-xintai/unit-4f/image-011.jpg"
+            ]
+      },
+      {
+            "title": "蘆洲民權路",
+            "status": "蘆洲區",
+            "location": "蘆洲區民權路",
+            "cover": "property-004-luzhou-minquan/room-a/image-001.jpg",
+            "tags": [
+                  "A 房展示",
+                  "明亮臥室",
+                  "可看出租頁"
+            ],
+            "description": "位於巷弄住宅區，空間整理後更容易看見房間尺度與入住動線。",
+            "rentUrl": "https://rent.591.com.tw/21243741",
+            "photos": [
+                  "property-004-luzhou-minquan/room-a/image-001.jpg",
+                  "property-004-luzhou-minquan/room-a/image-002.jpg",
+                  "property-004-luzhou-minquan/room-a/image-003.jpg",
+                  "property-004-luzhou-minquan/common/image-001.jpg",
+                  "property-004-luzhou-minquan/common/image-002.jpg",
+                  "property-004-luzhou-minquan/common/image-003.jpg",
+                  "property-004-luzhou-minquan/common/image-004.jpg",
+                  "property-004-luzhou-minquan/common/image-005.jpg",
+                  "property-004-luzhou-minquan/common/image-006.jpg",
+                  "property-004-luzhou-minquan/common/image-007.jpg",
+                  "property-004-luzhou-minquan/common/image-008.jpg",
+                  "property-004-luzhou-minquan/common/image-009.jpg",
+                  "property-004-luzhou-minquan/common/image-010.jpg",
+                  "property-004-luzhou-minquan/common/image-011.jpg",
+                  "property-004-luzhou-minquan/common/image-012.jpg",
+                  "property-004-luzhou-minquan/common/image-013.jpg",
+                  "property-004-luzhou-minquan/common/image-014.jpg",
+                  "property-004-luzhou-minquan/room-b/image-001.png",
+                  "property-004-luzhou-minquan/room-b/image-002.png",
+                  "property-004-luzhou-minquan/room-b/image-003.png",
+                  "property-004-luzhou-minquan/room-c/image-001.jpg",
+                  "property-004-luzhou-minquan/room-c/image-002.png",
+                  "property-004-luzhou-minquan/room-c/image-003.png",
+                  "property-004-luzhou-minquan/room-d/image-001.jpg",
+                  "property-004-luzhou-minquan/room-d/image-002.jpg",
+                  "property-004-luzhou-minquan/room-d/image-003.jpg"
+            ]
+      },
+      {
+            "title": "新莊中港路",
+            "status": "新莊區",
+            "location": "新莊區中港路",
+            "cover": "property-005-xinzhuang-zhonggang/room-a/image-001.jpg",
+            "tags": [
+                  "A 房展示",
+                  "暖色臥室",
+                  "可看出租頁"
+            ],
+            "description": "以暖色家具與窗簾修飾房間氛圍，讓租客更容易想像入住後的生活感。",
+            "rentUrl": "https://rent.591.com.tw/20107572",
+            "photos": [
+                  "property-005-xinzhuang-zhonggang/room-a/image-001.jpg",
+                  "property-005-xinzhuang-zhonggang/room-a/image-002.jpg",
+                  "property-005-xinzhuang-zhonggang/room-a/image-003.jpg",
+                  "property-005-xinzhuang-zhonggang/common/image-001.jpg",
+                  "property-005-xinzhuang-zhonggang/common/image-002.jpg",
+                  "property-005-xinzhuang-zhonggang/common/image-003.jpg",
+                  "property-005-xinzhuang-zhonggang/common/image-004.jpg",
+                  "property-005-xinzhuang-zhonggang/common/image-005.jpg",
+                  "property-005-xinzhuang-zhonggang/common/image-006.jpg",
+                  "property-005-xinzhuang-zhonggang/common/image-007.jpg",
+                  "property-005-xinzhuang-zhonggang/room-b/image-001.jpg",
+                  "property-005-xinzhuang-zhonggang/room-b/image-002.jpg",
+                  "property-005-xinzhuang-zhonggang/room-b/image-003.jpg",
+                  "property-005-xinzhuang-zhonggang/room-c/image-001.jpg",
+                  "property-005-xinzhuang-zhonggang/room-c/image-002.jpg",
+                  "property-005-xinzhuang-zhonggang/room-c/image-003.jpg",
+                  "property-005-xinzhuang-zhonggang/room-d/image-001.jpg",
+                  "property-005-xinzhuang-zhonggang/room-d/image-002.jpg",
+                  "property-005-xinzhuang-zhonggang/room-d/image-003.jpg",
+                  "property-005-xinzhuang-zhonggang/room-d/image-004.jpg"
+            ]
+      },
+      {
+            "title": "新莊自由街",
+            "status": "新莊區",
+            "location": "新莊區自由街",
+            "cover": "property-006-xinzhuang-ziyou/room-a/image-001.jpg",
+            "tags": [
+                  "A 房展示",
+                  "小宅配置",
+                  "可看出租頁"
+            ],
+            "description": "小坪數空間以必要家具與留白為主，呈現乾淨、好整理的入住狀態。",
+            "rentUrl": "https://rent.591.com.tw/21210101",
+            "photos": [
+                  "property-006-xinzhuang-ziyou/room-a/image-001.jpg",
+                  "property-006-xinzhuang-ziyou/room-a/image-002.jpg",
+                  "property-006-xinzhuang-ziyou/room-a/image-003.jpg",
+                  "property-006-xinzhuang-ziyou/common/image-001.jpg",
+                  "property-006-xinzhuang-ziyou/common/image-002.jpg",
+                  "property-006-xinzhuang-ziyou/common/image-003.jpg",
+                  "property-006-xinzhuang-ziyou/room-b/image-001.jpg",
+                  "property-006-xinzhuang-ziyou/room-b/image-002.jpg",
+                  "property-006-xinzhuang-ziyou/room-b/image-003.jpg",
+                  "property-006-xinzhuang-ziyou/room-c/image-001.jpg",
+                  "property-006-xinzhuang-ziyou/room-c/image-002.png",
+                  "property-006-xinzhuang-ziyou/room-d/image-001.jpg",
+                  "property-006-xinzhuang-ziyou/room-d/image-002.png"
+            ]
+      },
+      {
+            "title": "萬華西園路二段",
+            "status": "萬華區",
+            "location": "萬華區西園路二段",
+            "cover": "property-007-wanhua-xiyuan/completed/image-001.png",
+            "tags": [
+                  "完工展示",
+                  "軟裝整理",
+                  "可看出租頁"
+            ],
+            "description": "以完工照片呈現整理後的完整樣貌，適合租客快速掌握公共空間與整體風格。",
+            "rentUrl": "https://rent.591.com.tw/21205686?s=ac",
+            "photos": [
+                  "property-007-wanhua-xiyuan/completed/image-001.png",
+                  "property-007-wanhua-xiyuan/completed/image-002.png",
+                  "property-007-wanhua-xiyuan/completed/image-003.png",
+                  "property-007-wanhua-xiyuan/completed/image-004.png",
+                  "property-007-wanhua-xiyuan/completed/image-005.png",
+                  "property-007-wanhua-xiyuan/completed/image-006.png",
+                  "property-007-wanhua-xiyuan/completed/image-007.png",
+                  "property-007-wanhua-xiyuan/completed/image-008.png",
+                  "property-007-wanhua-xiyuan/completed/image-009.png",
+                  "property-007-wanhua-xiyuan/completed/image-010.png",
+                  "property-007-wanhua-xiyuan/completed/image-011.png",
+                  "property-007-wanhua-xiyuan/completed/image-012.png",
+                  "property-007-wanhua-xiyuan/completed/image-013.png",
+                  "property-007-wanhua-xiyuan/completed/image-014.png",
+                  "property-007-wanhua-xiyuan/completed/image-015.png",
+                  "property-007-wanhua-xiyuan/completed/image-016.png",
+                  "property-007-wanhua-xiyuan/completed/image-017.png",
+                  "property-007-wanhua-xiyuan/completed/image-018.png",
+                  "property-007-wanhua-xiyuan/before-after/image-001.png",
+                  "property-007-wanhua-xiyuan/before-after/image-002.png",
+                  "property-007-wanhua-xiyuan/before-after/image-003.png",
+                  "property-007-wanhua-xiyuan/before-after/image-004.png",
+                  "property-007-wanhua-xiyuan/before-after/image-005.png",
+                  "property-007-wanhua-xiyuan/before-after/image-006.png",
+                  "property-007-wanhua-xiyuan/before-after/image-007.png",
+                  "property-007-wanhua-xiyuan/before/image-001.jpg",
+                  "property-007-wanhua-xiyuan/before/image-002.jpg",
+                  "property-007-wanhua-xiyuan/before/image-003.jpg",
+                  "property-007-wanhua-xiyuan/before/image-004.jpg",
+                  "property-007-wanhua-xiyuan/before/image-005.jpg",
+                  "property-007-wanhua-xiyuan/before/image-006.jpg",
+                  "property-007-wanhua-xiyuan/before/image-007.jpg",
+                  "property-007-wanhua-xiyuan/before/image-008.jpg",
+                  "property-007-wanhua-xiyuan/before/image-009.jpg",
+                  "property-007-wanhua-xiyuan/before/image-010.jpg",
+                  "property-007-wanhua-xiyuan/before/image-011.jpg",
+                  "property-007-wanhua-xiyuan/before/image-012.jpg",
+                  "property-007-wanhua-xiyuan/before/image-013.jpg",
+                  "property-007-wanhua-xiyuan/before/image-014.jpg",
+                  "property-007-wanhua-xiyuan/before/image-015.jpg",
+                  "property-007-wanhua-xiyuan/before/image-016.jpg",
+                  "property-007-wanhua-xiyuan/before/image-017.jpg",
+                  "property-007-wanhua-xiyuan/before/image-018.jpg",
+                  "property-007-wanhua-xiyuan/before/image-019.jpg",
+                  "property-007-wanhua-xiyuan/before/image-020.jpg",
+                  "property-007-wanhua-xiyuan/before/image-021.jpg",
+                  "property-007-wanhua-xiyuan/before/image-022.jpg",
+                  "property-007-wanhua-xiyuan/before/image-023.jpg",
+                  "property-007-wanhua-xiyuan/before/image-024.jpg",
+                  "property-007-wanhua-xiyuan/before/image-025.jpg",
+                  "property-007-wanhua-xiyuan/before/image-026.jpg",
+                  "property-007-wanhua-xiyuan/before/image-027.jpg",
+                  "property-007-wanhua-xiyuan/before/image-028.jpg",
+                  "property-007-wanhua-xiyuan/before/image-029.jpg",
+                  "property-007-wanhua-xiyuan/before/image-030.jpg",
+                  "property-007-wanhua-xiyuan/before/image-031.jpg",
+                  "property-007-wanhua-xiyuan/before/image-032.jpg",
+                  "property-007-wanhua-xiyuan/before/image-033.jpg",
+                  "property-007-wanhua-xiyuan/before/image-034.jpg"
+            ]
+      }
+];
+
+    const caseGrid = document.querySelector("#caseGrid");
+    const lightbox = document.querySelector("#lightbox");
+    const lightboxTitle = document.querySelector("#lightboxTitle");
+    const lightboxGallery = document.querySelector("#lightboxGallery");
+    const lightboxClose = document.querySelector("#lightboxClose");
+    const menuToggle = document.querySelector("#menuToggle");
+    const navLinks = document.querySelector("#navLinks");
+    const leadForm = document.querySelector("#leadForm");
+    const formMessage = document.querySelector("#formMessage");
+    const youtubeEmbed = document.querySelector("#youtubeEmbed");
+
+    if (youtubeEmbed && /^https?:$/.test(window.location.protocol)) {
+      const youtubeSrc = `https://www.youtube.com/embed/videoseries?list=UUiBXMoMY0IQpuu6G8-kPoDw&origin=${encodeURIComponent(window.location.origin)}`;
+      youtubeEmbed.innerHTML = `<iframe src="${youtubeSrc}" title="Chome YouTube \u7269\u4ef6\u77ed\u5f71\u97f3\u64ad\u653e\u6e05\u55ae" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>`;
+    }
+
+    caseGrid.innerHTML = cases.map((item, index) => `
+      <article class="case-card reveal">
+        <div class="case-image">
+          <img src="${encodeAssetPath(item.cover)}" alt="${item.title}\u7269\u4ef6\u5c01\u9762\u7167\u7247" loading="${index === 0 ? "eager" : "lazy"}">
+          <span class="case-status">${item.status}</span>
+        </div>
+        <div class="case-body">
+          <h3>${String(index + 1).padStart(2, "0")} / ${item.title}</h3>
+          <div class="case-meta">
+            <span class="tag address-tag">${item.location}</span>
+            ${item.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}
+          </div>
+          <p>${item.description}</p>
+          <div class="case-actions renter-actions">
+            <button class="text-button" type="button" data-case-index="${index}" ${item.photos.length ? "" : "disabled"}>${item.photos.length ? "\u67e5\u770b\u7167\u7247\u96c6" : "\u7b49\u5f85\u7167\u7247"}</button>
+            ${item.rentUrl ? `<a class="text-button listing-link" href="${item.rentUrl}" target="_blank" rel="noopener">\u67e5\u770b\u51fa\u79df\u9801</a>` : ""}
+          </div>
+        </div>
+      </article>
+    `).join("");
+
+    const openLightbox = (index) => {
+      const selected = cases[index];
+      if (!selected || !selected.photos.length) return;
+      lightboxTitle.textContent = selected.title;
+      lightboxGallery.innerHTML = selected.photos.map((photo, photoIndex) => `
+        <img src="${encodeAssetPath(photo)}" alt="${selected.title}?? ${photoIndex + 1}" loading="lazy">
+      `).join("");
+      lightbox.classList.add("is-open");
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.classList.add("locked");
+      lightboxClose.focus();
+    };
+
+    const closeLightbox = () => {
+      lightbox.classList.remove("is-open");
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("locked");
+    };
+
+    const updateCarousel = (carousel, index) => {
+      const slides = carousel.querySelectorAll(".case-slide");
+      const dots = carousel.querySelectorAll(".case-dot");
+      if (!slides.length) return;
+      const normalized = (index + slides.length) % slides.length;
+      carousel.dataset.carouselIndex = String(normalized);
+      carousel.querySelector(".case-carousel-track").style.transform = `translateX(-${normalized * 100}%)`;
+      dots.forEach((dot, dotIndex) => dot.classList.toggle("is-active", dotIndex === normalized));
+    };
+
+    document.addEventListener("click", (event) => {
+      const carouselButton = event.target.closest("[data-carousel-action], [data-carousel-dot]");
+      if (carouselButton) {
+        const carousel = carouselButton.closest(".case-carousel");
+        const current = Number(carousel.dataset.carouselIndex || 0);
+        if (carouselButton.dataset.carouselAction === "prev") updateCarousel(carousel, current - 1);
+        if (carouselButton.dataset.carouselAction === "next") updateCarousel(carousel, current + 1);
+        if (carouselButton.dataset.carouselDot) updateCarousel(carousel, Number(carouselButton.dataset.carouselDot));
+        return;
+      }
+
+      const trigger = event.target.closest("[data-case-index]");
+      if (trigger) openLightbox(Number(trigger.dataset.caseIndex));
+      if (event.target === lightbox) closeLightbox();
+    });
+
+    lightboxClose.addEventListener("click", closeLightbox);
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && lightbox.classList.contains("is-open")) closeLightbox();
+    });
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("is-open");
+      menuToggle.classList.toggle("is-open", isOpen);
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    navLinks.addEventListener("click", (event) => {
+      if (event.target.matches("a")) {
+        navLinks.classList.remove("is-open");
+        menuToggle.classList.remove("is-open");
+        menuToggle.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    leadForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      formMessage.classList.add("is-visible");
+      formMessage.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach((element) => {
+      revealObserver.observe(element);
+    });
+  </script>
 </body>
 </html>
