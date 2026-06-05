@@ -1853,7 +1853,7 @@
           <p>填寫物件區域、屋況與希望服務後，Chome 會依你的資訊初步判斷適合的委託方式，再安排後續聯繫。</p>
         </div>
         <div class="form-panel reveal">
-          <form class="lead-form" id="leadForm">
+          <form class="lead-form" id="leadForm" action="https://forms.gle/om1Vd2Amt76srkZu6" target="_blank">
             <div class="form-row">
               <div class="field">
                 <label for="ownerName">房東姓名</label>
@@ -1901,7 +1901,7 @@
               <label for="message">補充說明</label>
               <textarea id="message" name="message" placeholder="可補充屋況、家具設備、預計出租時間或其他需求"></textarea>
             </div>
-            <p class="form-message" id="formMessage">資料已整理。請透過下方 LINE、電話或 Email 聯絡 Chome，正式表單串接後即可直接送出。</p>
+            <p class="form-message" id="formMessage">將開啟 Chome 官方 Google 表單，請在表單中完成送出，我們收到後會再與你聯繫。</p>
             <button class="btn btn-primary" type="submit">送出評估資料</button>
           </form>
         </div>
@@ -2426,6 +2426,7 @@
       event.preventDefault();
       formMessage.classList.add("is-visible");
       formMessage.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      window.open("https://forms.gle/om1Vd2Amt76srkZu6", "_blank", "noopener");
     });
 
     const revealObserver = new IntersectionObserver((entries) => {
