@@ -1,0 +1,735 @@
+var state = { items: [], movements: [], properties: [], selectedId: '', scannerStream: null };
+var inventoryState = { page: 1, optionsReady: false };
+var statusMap = {
+  '在庫': 'status-in',
+  '良好': 'status-in',
+  '已出庫': 'status-out',
+  '維修中': 'status-repair',
+  '報廢': 'status-repair'
+};
+var companyLocationName = '公司倉庫';
+
+function $(selector) {
+  return document.querySelector(selector);
+}
+
+function $all(selector) {
+  return Array.prototype.slice.call(document.querySelectorAll(selector));
+}
+
+function htmlEscape(value) {
+  return String(value == null ? '' : value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function toast(message) {
+  var node = $('#toast');
+  node.textContent = message;
+  node.classList.add('show');
+  window.setTimeout(function () {
+    node.classList.remove('show');
+  }, 2400);
+}
+
+function callServer(name, payload) {
+  return new Promise(function (resolve, reject) {
+    google.script.run
+      .withSuccessHandler(resolve)
+      .withFailureHandler(function (error) {
+        reject(error);
+      })[name](payload);
+  });
+}
+
+async function loadData() {
+  toast('正在載入 Google Sheets');
+  var data = await callServer('getAppData');
+  if (typeof data === 'string') {
+    data = JSON.parse(data || '{}');
+  }
+  if (!data || !Array.isArray(data.items)) {
+    throw new Error('getAppData 沒有回傳庫存資料，請確認 Code.gs 已更新並重新部署新版');
+  }
+  state.items = data.items || [];
+  state.movements = data.movements || [];
+  state.properties = data.properties || [];
+  inventoryState.optionsReady = false;
+  renderAll();
+  if (state.items[0] && !state.selectedId) setSelectedItem(state.items[0].id);
+  toast('資料已更新');
+}
+
+function renderMetrics() {
+  var inStock = 0;
+  var outStock = 0;
+  var repair = 0;
+  state.items.forEach(function (item) {
+    var distribution = itemDistributionMap(item);
+    Object.keys(distribution).forEach(function (location) {
+      var amount = Number(distribution[location] || 0);
+      if (location === companyLocationName) {
+        inStock += amount;
+      } else {
+        outStock += amount;
+      }
+    });
+    if (item.status === '維修中') repair += itemAmount(item);
+  });
+  $('#metricInStock').textContent = inStock;
+  $('#metricOut').textContent = outStock;
+  $('#metricRepair').textContent = repair;
+}
+
+function itemLabel(item) {
+  return String(item.category || '') + ' ' + String(item.name || '') + (item.spec ? ' / ' + item.spec : '');
+}
+
+function itemGroupKey(item) {
+  if (item.typeId) return 'type:' + String(item.typeId).trim().toLowerCase();
+  return ['category', 'name', 'spec'].map(function (field) {
+    return String(item[field] || '').trim().toLowerCase();
+  }).join('|');
+}
+
+function itemAmount(item) {
+  var amount = Number(String(item.amount == null ? '' : item.amount).replace(/,/g, '').trim());
+  return Number.isFinite(amount) ? amount : 0;
+}
+
+function itemDistributionText(item) {
+  var directDistribution = itemDistributionMap(item);
+  if (Object.keys(directDistribution).length) {
+    return Object.keys(directDistribution).sort().map(function (location) {
+      return location + ' X ' + directDistribution[location];
+    }).join('、');
+  }
+  var targetKey = itemGroupKey(item);
+  var byLocation = {};
+  state.items.forEach(function (entry) {
+    if (itemGroupKey(entry) !== targetKey) return;
+    var location = entry.location || '未填位置';
+    byLocation[location] = (byLocation[location] || 0) + itemAmount(entry);
+  });
+  var rows = Object.keys(byLocation)
+    .filter(function (location) { return byLocation[location] > 0; })
+    .sort()
+    .map(function (location) {
+      return location + ' X ' + byLocation[location];
+    });
+  return rows.length ? rows.join('、') : '-';
+}
+
+function distributionFromText(text) {
+  var result = {};
+  String(text || '').split('、').forEach(function (part) {
+    var value = String(part || '').trim();
+    if (!value) return;
+    var match = value.match(/^(.+?)\s*[xX]\s*([0-9.]+)$/);
+    if (!match) return;
+    var location = match[1].trim();
+    var amount = Number(match[2]);
+    if (location && Number.isFinite(amount) && amount > 0) result[location] = amount;
+  });
+  return result;
+}
+
+function itemDistributionMap(item) {
+  var parsed = distributionFromText(item.locationDistribution || item.location);
+  var location = item.location || '未填位置';
+  var amount = itemAmount(item);
+  var parsedTotal = Object.keys(parsed).reduce(function (total, key) {
+    return total + Number(parsed[key] || 0);
+  }, 0);
+  if (amount > parsedTotal) {
+    parsed[location] = Number(parsed[location] || 0) + (amount - parsedTotal);
+  }
+  if (Object.keys(parsed).length) return parsed;
+  var result = {};
+  if (amount > 0) result[location] = amount;
+  return result;
+}
+
+function renderSourceLocationOptions(item) {
+  var select = $('#fromLocation');
+  if (!select) return;
+  var distribution = itemDistributionMap(item);
+  var locations = Object.keys(distribution).sort();
+  if (!locations.length) {
+    select.innerHTML = '<option value="">無可用來源位置</option>';
+    return;
+  }
+  select.innerHTML = locations.map(function (location, index) {
+    return '<option value="' + htmlEscape(location) + '"' + (index === 0 ? ' selected' : '') + '>'
+      + htmlEscape(location + ' X ' + distribution[location])
+      + '</option>';
+  }).join('');
+}
+
+function selectedItem() {
+  return state.items.find(function (entry) {
+    return entry.id === state.selectedId;
+  });
+}
+
+function hasNonCompanyLocation(item) {
+  if (!item) return false;
+  var distribution = itemDistributionMap(item);
+  return Object.keys(distribution).some(function (location) {
+    return location !== companyLocationName && distribution[location] > 0;
+  });
+}
+
+function updateMovementFields() {
+  var action = $('#actionType') ? $('#actionType').value : '';
+  var shouldShowSource = ['出庫', '入庫', '調撥', '維修', '報廢'].indexOf(action) > -1 && hasNonCompanyLocation(selectedItem());
+  $all('.source-location-field').forEach(function (node) {
+    node.classList.toggle('hide', !shouldShowSource);
+  });
+  if ($('#fromLocation')) {
+    $('#fromLocation').required = shouldShowSource;
+    if (!shouldShowSource) $('#fromLocation').value = '';
+  }
+  if (action === '入庫' && $('#toLocation')) $('#toLocation').value = '公司倉庫';
+  updateLocationFields();
+}
+
+function updateLocationFields() {
+  var custom = $('#customLocation');
+  var property = $('#propertyLocation');
+  var value = $('#toLocation') ? $('#toLocation').value : '';
+  var isCustom = value === '其他位置';
+  var isProperty = value === '房源 / 案場';
+  if (custom) {
+    custom.classList.toggle('show', isCustom);
+    custom.required = isCustom;
+    if (!isCustom) custom.value = '';
+  }
+  if (property) {
+    property.classList.toggle('show', isProperty);
+    property.required = isProperty;
+    if (!isProperty) property.value = '';
+  }
+}
+
+function scoreItem(item, keyword) {
+  var text = [
+    item.id,
+    item.typeId,
+    item.category,
+    item.name,
+    item.spec,
+    item.location
+  ].join(' ').toLowerCase();
+  return text.indexOf(keyword.toLowerCase()) > -1;
+}
+
+function setSelectedItem(itemId) {
+  var item = state.items.find(function (entry) {
+    return entry.id === itemId;
+  });
+  if (!item) return;
+
+  state.selectedId = item.id;
+  $('#selectedItemId').textContent = item.id;
+  $('#actionTarget').textContent = item.id;
+  $('#selectedName').textContent = String(item.category || '') + ' ' + String(item.name || '');
+  $('#selectedSpec').textContent = item.spec || '-';
+  $('#selectedStatus').textContent = item.status || '-';
+  $('#selectedAmount').textContent = item.amount || '0';
+  $('#selectedDistribution').textContent = itemDistributionText(item);
+  $('#selectedType').textContent = item.typeId || '-';
+  $('#selectedMovedAt').textContent = item.lastMovedAt || '-';
+  renderSourceLocationOptions(item);
+  updateMovementFields();
+  renderSelectedPhoto(item);
+  $('#itemSearch').value = item.id;
+  renderSelectedHistory();
+}
+
+function renderSelectedPhoto(item) {
+  var wrap = $('#selectedPhotoWrap');
+  var image = $('#selectedPhoto');
+  var caption = $('#selectedPhotoCaption');
+  var link = $('#selectedPhotoLink');
+
+  if (!item.photoUrl) {
+    wrap.classList.remove('show');
+    image.removeAttribute('src');
+    link.removeAttribute('href');
+    return;
+  }
+
+  var photo = normalizePhotoUrl(item.photoUrl);
+  image.onerror = function () {
+    caption.textContent = '圖片無法內嵌顯示，請檢查 Drive 權限或點右側連結開啟';
+  };
+  image.onload = function () {
+    caption.textContent = (String(item.category || '') + ' ' + String(item.name || '')).trim() || '物品照片';
+  };
+  image.src = photo.imageUrl;
+  link.href = photo.openUrl;
+  caption.textContent = (String(item.category || '') + ' ' + String(item.name || '')).trim() || '物品照片';
+  wrap.classList.add('show');
+}
+
+function normalizePhotoUrl(url) {
+  var text = String(url || '').trim();
+  var markdownMatchStart = text.indexOf('](');
+
+  if (text.charAt(0) === '[' && markdownMatchStart > -1 && text.charAt(text.length - 1) === ')') {
+    text = text.slice(markdownMatchStart + 2, -1);
+  }
+
+  var fileMarker = '/file/d/';
+  var fileIndex = text.indexOf(fileMarker);
+  if (fileIndex > -1) {
+    var fileId = text.slice(fileIndex + fileMarker.length).split('/')[0];
+    return buildDrivePhotoUrls(fileId, text);
+  }
+
+  var queryId = getQueryParam(text, 'id');
+  if (text.indexOf('drive.google.com') > -1 && queryId) return buildDrivePhotoUrls(queryId, text);
+  return { imageUrl: text, openUrl: text };
+}
+
+function buildDrivePhotoUrls(fileId, originalUrl) {
+  var id = encodeURIComponent(fileId);
+  return {
+    imageUrl: 'https:' + '//lh3.googleusercontent.com/d/' + id,
+    openUrl: originalUrl || ('https:' + '//drive.google.com/file/d/' + id + '/view')
+  };
+}
+
+function getQueryParam(url, key) {
+  var query = String(url || '').split('?')[1] || '';
+  var parts = query.split('&');
+  for (var i = 0; i < parts.length; i += 1) {
+    var pair = parts[i].split('=');
+    if (decodeURIComponent(pair[0] || '') === key) return decodeURIComponent(pair[1] || '');
+  }
+  return '';
+}
+
+function renderQuickList() {
+  var keyword = $('#itemSearch').value.trim();
+  var matches = (keyword ? state.items.filter(function (item) {
+    return scoreItem(item, keyword);
+  }) : state.items).slice(0, 7);
+
+  $('#quickList').innerHTML = matches.map(function (item) {
+    return ''
+      + '<button class="quick-item" type="button" data-id="' + htmlEscape(item.id) + '">'
+      + '<strong>' + htmlEscape(item.id) + '</strong>'
+      + '<span>' + htmlEscape(itemLabel(item)) + ' · ' + htmlEscape(item.status) + ' · ' + htmlEscape(item.location) + '</span>'
+      + '</button>';
+  }).join('');
+}
+
+function statusBadge(status) {
+  return '<span class="status ' + (statusMap[status] || 'status-out') + '">' + htmlEscape(status) + '</span>';
+}
+
+function syncInventoryOptions() {
+  if (inventoryState.optionsReady) return;
+  fillSelectOptions('#categoryFilter', uniqueValues('category'), '全部類別');
+  fillSelectOptions('#locationFilter', uniqueValues('location'), '全部位置');
+  inventoryState.optionsReady = true;
+}
+
+function uniqueValues(field) {
+  var seen = {};
+  var values = [];
+  state.items.forEach(function (item) {
+    var value = String(item[field] || '').trim();
+    if (value && !seen[value]) {
+      seen[value] = true;
+      values.push(value);
+    }
+  });
+  return values.sort(function (a, b) {
+    return a.localeCompare(b, 'zh-Hant');
+  });
+}
+
+function fillSelectOptions(selector, values, firstLabel) {
+  var select = $(selector);
+  var current = select.value;
+  select.innerHTML = '<option value="">' + htmlEscape(firstLabel) + '</option>' + values.map(function (value) {
+    return '<option value="' + htmlEscape(value) + '">' + htmlEscape(value) + '</option>';
+  }).join('');
+  select.value = current;
+}
+
+function filteredInventoryRows() {
+  var keyword = $('#inventoryFilter').value.trim();
+  var status = $('#statusFilter').value;
+  var category = $('#categoryFilter').value;
+  var location = $('#locationFilter').value;
+  var sortMode = $('#sortSelect').value;
+
+  var rows = state.items
+    .filter(function (item) { return !status || item.status === status; })
+    .filter(function (item) { return !category || item.category === category; })
+    .filter(function (item) { return !location || item.location === location; })
+    .filter(function (item) { return !keyword || scoreItem(item, keyword); });
+
+  rows.sort(function (a, b) {
+    if (sortMode === 'name') return itemLabel(a).localeCompare(itemLabel(b), 'zh-Hant');
+    if (sortMode === 'status') return String(a.status || '').localeCompare(String(b.status || ''), 'zh-Hant') || itemLabel(a).localeCompare(itemLabel(b), 'zh-Hant');
+    if (sortMode === 'recent') return String(b.lastMovedAt || '').localeCompare(String(a.lastMovedAt || '')) || itemLabel(a).localeCompare(itemLabel(b), 'zh-Hant');
+    return String(a.category || '').localeCompare(String(b.category || ''), 'zh-Hant') || itemLabel(a).localeCompare(itemLabel(b), 'zh-Hant');
+  });
+
+  return rows;
+}
+
+function renderInventory() {
+  syncInventoryOptions();
+  var rows = filteredInventoryRows();
+  var pageSize = Number($('#pageSizeSelect').value || 24);
+  var totalPages = Math.max(1, Math.ceil(rows.length / pageSize));
+  if (inventoryState.page > totalPages) inventoryState.page = totalPages;
+  if (inventoryState.page < 1) inventoryState.page = 1;
+
+  var start = (inventoryState.page - 1) * pageSize;
+  var pageRows = rows.slice(start, start + pageSize);
+
+  $('#inventoryCount').textContent = rows.length + ' 件物品';
+  $('#inventoryGrid').innerHTML = pageRows.length ? pageRows.map(productCard).join('') : emptyText('沒有符合條件的物品');
+  renderInventoryPager(totalPages);
+
+  $('#inventoryTable').innerHTML = rows.map(function (item) {
+    return ''
+      + '<tr data-id="' + htmlEscape(item.id) + '">'
+      + '<td>' + htmlEscape(item.id) + '</td>'
+      + '<td>' + htmlEscape(item.category) + '</td>'
+      + '<td>' + htmlEscape(item.name) + '</td>'
+      + '<td>' + htmlEscape(item.spec || '') + '</td>'
+      + '<td>' + statusBadge(item.status) + '</td>'
+      + '<td>' + htmlEscape(item.location) + '</td>'
+      + '</tr>';
+  }).join('');
+}
+
+function renderInventoryPager(totalPages) {
+  var pager = $('#inventoryPager');
+  if (totalPages <= 1) {
+    pager.innerHTML = '';
+    return;
+  }
+  var html = '<button type="button" data-page="' + Math.max(1, inventoryState.page - 1) + '">上一頁</button>';
+  for (var page = 1; page <= totalPages; page += 1) {
+    if (page === 1 || page === totalPages || Math.abs(page - inventoryState.page) <= 1) {
+      html += '<button type="button" class="' + (page === inventoryState.page ? 'active' : '') + '" data-page="' + page + '">' + page + '</button>';
+    } else if (Math.abs(page - inventoryState.page) === 2) {
+      html += '<span>...</span>';
+    }
+  }
+  html += '<button type="button" data-page="' + Math.min(totalPages, inventoryState.page + 1) + '">下一頁</button>';
+  pager.innerHTML = html;
+}
+
+function productCard(item) {
+  var photoHtml = '';
+  var amountText = item.amount ? '數量 X ' + item.amount : '數量 X 1';
+  if (item.photoUrl) {
+    photoHtml = '<img src="' + htmlEscape(normalizePhotoUrl(item.photoUrl).imageUrl) + '" alt="' + htmlEscape(itemLabel(item)) + '" loading="lazy">';
+  } else {
+    photoHtml = '<span class="photo-missing">尚無圖片</span>';
+  }
+
+  return ''
+    + '<button class="product-card" type="button" data-id="' + htmlEscape(item.id) + '">'
+    + '<span class="product-photo">'
+    + '<span class="product-status">' + statusBadge(item.status) + '</span>'
+    + photoHtml
+    + '</span>'
+    + '<span class="product-info">'
+    + '<strong class="product-name">' + htmlEscape(item.category || '') + ' ' + htmlEscape(item.name || '') + '</strong>'
+    + '<span class="product-meta product-amount">' + htmlEscape(amountText) + '</span>'
+    + '<span class="product-meta product-location">' + htmlEscape(item.location || '-') + '</span>'
+    + '</span>'
+    + '</button>';
+}
+
+function movementActionClass(action) {
+  if (action === '出庫') return 'movement-action-out';
+  if (action === '入庫') return 'movement-action-in';
+  return '';
+}
+
+function movementItemLabel(movement) {
+  var item = state.items.find(function (entry) {
+    return entry.id === movement.itemId;
+  });
+  var itemName = item ? [item.category, item.name].filter(Boolean).join(' ') : '';
+  return String(movement.itemId || '') + (itemName ? ' - ' + itemName : '');
+}
+
+function movementCard(movement) {
+  var actionClass = movementActionClass(movement.action || '');
+  var quantityText = movement.quantity ? ' · 數量 X ' + movement.quantity : '';
+  return ''
+    + '<article class="movement-card">'
+    + '<time>' + htmlEscape(movement.timestamp || '') + '</time>'
+    + '<strong class="movement-action ' + actionClass + '">' + htmlEscape(movement.action || '') + '</strong>'
+    + '<div>'
+    + '<strong>' + htmlEscape(movementItemLabel(movement)) + '</strong>'
+    + '<span>' + htmlEscape(movement.fromLocation || '-') + ' → ' + htmlEscape(movement.toLocation || '-') + htmlEscape(quantityText) + '</span>'
+    + '<span>' + (movement.operator ? ' · ' + htmlEscape(movement.operator) : '') + (movement.note ? ' · ' + htmlEscape(movement.note) : '') + '</span>'
+    + '</div>'
+    + '</article>';
+}
+
+function renderMovementList() {
+  var keyword = $('#historyFilter').value.trim().toLowerCase();
+  var rows = state.movements
+    .filter(function (movement) {
+      return !keyword || JSON.stringify(movement).toLowerCase().indexOf(keyword) > -1;
+    })
+    .slice()
+    .reverse();
+  $('#movementList').innerHTML = rows.length ? rows.map(movementCard).join('') : emptyText('尚無異動紀錄');
+}
+
+function renderSelectedHistory() {
+  var rows = state.movements.filter(function (movement) {
+    return movement.itemId === state.selectedId;
+  }).slice().reverse();
+  $('#selectedHistoryCount').textContent = rows.length + ' 筆';
+  $('#selectedHistory').innerHTML = rows.length ? rows.map(movementCard).join('') : emptyText('此物品尚無紀錄');
+}
+
+function emptyText(text) {
+  return '<div class="quick-item"><strong>' + htmlEscape(text) + '</strong><span></span></div>';
+}
+
+async function addMovement() {
+  var item = state.items.find(function (entry) {
+    return entry.id === state.selectedId;
+  });
+  if (!item) {
+    toast('請先選取物品');
+    return;
+  }
+
+  var selectedLocation = $('#toLocation').value;
+  var sourceLocation = $('#fromLocation') ? $('#fromLocation').value.trim() : '';
+  var propertyLocation = $('#propertyLocation') ? $('#propertyLocation').value.trim() : '';
+  var customLocation = $('#customLocation') ? $('#customLocation').value.trim() : '';
+  var finalLocation = selectedLocation;
+  if (selectedLocation === '房源 / 案場') {
+    finalLocation = propertyLocation;
+  } else if (selectedLocation === '其他位置') {
+    finalLocation = customLocation;
+  }
+  if (!finalLocation) {
+    toast('請輸入目的地 / 新位置');
+    return;
+  }
+  if ($('#fromLocation') && $('#fromLocation').required && !sourceLocation) {
+    toast('請選擇來源位置');
+    return;
+  }
+
+  var payload = {
+    itemId: item.id,
+    action: $('#actionType').value,
+    fromLocation: sourceLocation,
+    toLocation: finalLocation,
+    quantity: $('#movementQuantity') ? $('#movementQuantity').value : 1,
+    note: $('#movementNote').value
+  };
+
+  toast('正在寫入異動紀錄');
+  var movement = await callServer('addMovement', payload);
+  state.movements.push(movement);
+  await loadData();
+  setSelectedItem(item.id);
+  $('#movementNote').value = '';
+  if ($('#movementQuantity')) $('#movementQuantity').value = '1';
+  if ($('#propertyLocation')) $('#propertyLocation').value = '';
+  if ($('#customLocation')) $('#customLocation').value = '';
+  toast('異動紀錄已新增');
+}
+
+async function startScanner() {
+  if (!('BarcodeDetector' in window)) {
+    toast('此瀏覽器不支援內建掃碼');
+    return;
+  }
+
+  if (state.scannerStream) {
+    state.scannerStream.getTracks().forEach(function (track) {
+      track.stop();
+    });
+    state.scannerStream = null;
+    $('#scannerVideo').srcObject = null;
+    $('#scanButton').textContent = '掃碼';
+    return;
+  }
+
+  var detector = new BarcodeDetector({ formats: ['qr_code'] });
+  var stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+  state.scannerStream = stream;
+  var video = $('#scannerVideo');
+  video.srcObject = stream;
+  await video.play();
+  $('#scanButton').textContent = '停止';
+
+  var tick = async function () {
+    if (!state.scannerStream) return;
+    var codes = await detector.detect(video);
+    if (codes.length) {
+      var value = codes[0].rawValue.trim();
+      $('#itemSearch').value = value;
+      renderQuickList();
+      var item = state.items.find(function (entry) {
+        return entry.id === value;
+      });
+      if (item) setSelectedItem(item.id);
+      toast(item ? '已讀取 QR Code' : '找不到此物品編號');
+    }
+    requestAnimationFrame(tick);
+  };
+  tick();
+}
+
+function bindEvents() {
+  $('#menuToggle').addEventListener('click', function () {
+    var sidebar = document.querySelector('.sidebar');
+    var isOpen = sidebar.classList.toggle('menu-open');
+    $('#menuToggle').setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  $all('.nav-tab').forEach(function (button) {
+    button.addEventListener('click', function () {
+      $all('.nav-tab').forEach(function (node) {
+        node.classList.remove('active');
+      });
+      $all('.view').forEach(function (node) {
+        node.classList.remove('active');
+      });
+      button.classList.add('active');
+      $('#view-' + button.dataset.view).classList.add('active');
+      document.querySelector('.sidebar').classList.remove('menu-open');
+      $('#menuToggle').setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  $('#refreshButton').addEventListener('click', function () {
+    loadData().catch(function (error) {
+      toast(error.message);
+    });
+  });
+  $('#itemSearch').addEventListener('input', renderQuickList);
+  $('#quickList').addEventListener('click', function (event) {
+    var button = event.target.closest('[data-id]');
+    if (button) setSelectedItem(button.dataset.id);
+  });
+  $('#inventoryGrid').addEventListener('click', function (event) {
+    var card = event.target.closest('[data-id]');
+    if (!card) return;
+    setSelectedItem(card.dataset.id);
+    document.querySelector('[data-view="operate"]').click();
+  });
+  $('#inventoryTable').addEventListener('click', function (event) {
+    var row = event.target.closest('[data-id]');
+    if (!row) return;
+    setSelectedItem(row.dataset.id);
+    document.querySelector('[data-view="operate"]').click();
+  });
+  $('#inventoryFilter').addEventListener('input', function () {
+    inventoryState.page = 1;
+    renderInventory();
+  });
+  $('#categoryFilter').addEventListener('change', function () {
+    inventoryState.page = 1;
+    renderInventory();
+  });
+  $('#statusFilter').addEventListener('change', function () {
+    inventoryState.page = 1;
+    renderInventory();
+  });
+  $('#locationFilter').addEventListener('change', function () {
+    inventoryState.page = 1;
+    renderInventory();
+  });
+  $('#sortSelect').addEventListener('change', function () {
+    inventoryState.page = 1;
+    renderInventory();
+  });
+  $('#pageSizeSelect').addEventListener('change', function () {
+    inventoryState.page = 1;
+    renderInventory();
+  });
+  $('#filterToggle').addEventListener('click', function () {
+    var panel = $('#filterPanel');
+    var isOpen = panel.classList.toggle('show');
+    $('#filterToggle').setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  $('#clearFilters').addEventListener('click', function () {
+    $('#inventoryFilter').value = '';
+    $('#categoryFilter').value = '';
+    $('#statusFilter').value = '';
+    $('#locationFilter').value = '';
+    inventoryState.page = 1;
+    renderInventory();
+  });
+  $('#actionType').addEventListener('change', updateMovementFields);
+  $('#toLocation').addEventListener('change', updateLocationFields);
+  $('#inventoryPager').addEventListener('click', function (event) {
+    var button = event.target.closest('[data-page]');
+    if (!button) return;
+    inventoryState.page = Number(button.dataset.page || 1);
+    renderInventory();
+    document.querySelector('#view-inventory').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  $('#historyFilter').addEventListener('input', renderMovementList);
+  $('#scanButton').addEventListener('click', function () {
+    startScanner().catch(function () {
+      toast('無法啟動相機');
+    });
+  });
+  $('#movementForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+    addMovement().catch(function (error) {
+      toast(error.message);
+    });
+  });
+}
+
+function renderAll() {
+  renderMetrics();
+  renderQuickList();
+  renderInventory();
+  renderMovementList();
+  renderSelectedHistory();
+  renderPropertyOptions();
+}
+
+function renderPropertyOptions() {
+  var select = $('#propertyLocation');
+  if (!select) return;
+  var options = ['<option value="">選擇房源 / 案場</option>'];
+  state.properties.forEach(function (name) {
+    options.push('<option value="' + htmlEscape(name) + '">' + htmlEscape(name) + '</option>');
+  });
+  if (!state.properties.length) {
+    options.push('<option value="" disabled>物件地點表沒有可選資料</option>');
+  }
+  select.innerHTML = options.join('');
+}
+
+try {
+  bindEvents();
+} catch (error) {
+  toast(error.message);
+}
+loadData().catch(function (error) {
+  toast(error.message);
+});

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>晶鑫倉庫管理</title>
+  <style><?!= include('styles'); ?></style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">
+          <img class="brand-logo" src="data:image/jpeg;base64,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" alt="CHOME">
+        </div>
+        <div>
+          <strong>晶鑫倉庫</strong>
+          <span id="userEmail"><?= userEmail ?></span>
+        </div>
+      </div>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="開啟選單" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="nav-tabs">
+        <button class="nav-tab" data-view="operate" type="button">出入庫</button>
+        <button class="nav-tab active" data-view="inventory" type="button">庫存</button>
+        <button class="nav-tab" data-view="history" type="button">紀錄</button>
+      </nav>
+      <div class="sidebar-metrics">
+        <div><span>在庫</span><strong id="metricInStock">0</strong></div>
+        <div><span>出庫</span><strong id="metricOut">0</strong></div>
+        <div><span>維修</span><strong id="metricRepair">0</strong></div>
+      </div>
+    </aside>
+
+    <main class="workspace">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Internal Google Sign-In</p>
+          <h1>晶鑫倉庫管理</h1>
+        </div>
+        <button id="refreshButton" type="button">重新整理</button>
+      </header>
+
+      <section class="view" id="view-operate">
+        <div class="scanner-panel">
+          <div class="scan-box">
+            <video id="scannerVideo" playsinline muted></video>
+            <div class="scan-frame"></div>
+            <div class="scan-placeholder">輸入或掃描單件物品編號</div>
+          </div>
+          <div class="scan-controls">
+            <label for="itemSearch">物品編號 / 品名</label>
+            <div class="input-row">
+              <input id="itemSearch" type="search" placeholder="JX-CUS-001-001、抱枕、LED">
+              <button id="scanButton" type="button">掃碼</button>
+            </div>
+            <div class="quick-list" id="quickList"></div>
+          </div>
+        </div>
+
+        <div class="operation-grid">
+          <section class="detail-panel">
+            <div class="section-title"><span>目前物品</span><strong id="selectedItemId">尚未選取</strong></div>
+            <figure class="item-photo" id="selectedPhotoWrap">
+              <img id="selectedPhoto" alt="物品照片">
+              <figcaption>
+                <span id="selectedPhotoCaption">物品照片</span>
+                <a id="selectedPhotoLink" href="#" target="_blank" rel="noopener">開啟圖片</a>
+              </figcaption>
+            </figure>
+            <dl class="item-facts">
+              <div><dt>品名</dt><dd id="selectedName">-</dd></div>
+              <div><dt>規格</dt><dd id="selectedSpec">-</dd></div>
+              <div><dt>狀態</dt><dd id="selectedStatus">-</dd></div>
+              <div><dt>總數量</dt><dd id="selectedAmount">-</dd></div>
+              <div><dt>同品項位置分布</dt><dd id="selectedDistribution">-</dd></div>
+              <div><dt>品項</dt><dd id="selectedType">-</dd></div>
+              <div><dt>最近異動</dt><dd id="selectedMovedAt">-</dd></div>
+            </dl>
+          </section>
+
+          <section class="action-panel">
+            <div class="section-title"><span>快速異動</span><strong id="actionTarget">未選取</strong></div>
+            <form id="movementForm">
+              <label for="actionType">動作</label>
+              <select id="actionType" required>
+                <option value="出庫">出庫</option>
+                <option value="入庫">入庫</option>
+                <option value="調撥">調撥</option>
+                <option value="維修">維修</option>
+                <option value="報廢">報廢</option>
+                <option value="盤點">盤點</option>
+              </select>
+              <label class="source-location-field" for="fromLocation">來源位置</label>
+              <select class="source-location-field" id="fromLocation" required>
+                <option value="">請先選取物品</option>
+              </select>
+              <label for="toLocation">目的地 / 新位置</label>
+              <select id="toLocation" required>
+                <option value="公司倉庫">公司倉庫</option>
+                <option value="暫存區">暫存區</option>
+                <option value="房源 / 案場">房源 / 案場</option>
+                <option value="維修商">維修商</option>
+                <option value="報廢區">報廢區</option>
+                <option value="其他位置">其他位置</option>
+              </select>
+              <select class="property-location" id="propertyLocation">
+                <option value="">選擇房源 / 案場</option>
+              </select>
+              <input class="custom-location" id="customLocation" type="text" placeholder="輸入實際位置，例如：中山區 XX 物件">
+              <label for="movementQuantity">異動數量</label>
+              <input id="movementQuantity" type="number" min="1" step="1" value="1" required>
+              <label for="operatorName">操作人</label>
+              <input id="operatorName" type="text" value="<?= userEmail ?>" readonly required>
+              <label for="movementNote">備註</label>
+              <textarea id="movementNote" rows="3" placeholder="用途、損壞情況、補充說明"></textarea>
+              <button class="primary-action" type="submit">新增異動紀錄</button>
+            </form>
+          </section>
+        </div>
+
+        <section class="history-strip">
+          <div class="section-title"><span>此物品紀錄</span><strong id="selectedHistoryCount">0 筆</strong></div>
+          <div class="movement-list compact" id="selectedHistory"></div>
+        </section>
+      </section>
+
+      <section class="view active" id="view-inventory">
+        <div class="inventory-heading">
+          <strong>庫存瀏覽</strong>
+          <button class="filter-toggle" id="filterToggle" type="button" aria-expanded="false">篩選</button>
+          <label class="catalog-select">
+            <span>商品排序</span>
+            <select id="sortSelect">
+              <option value="category">類別排序</option>
+              <option value="name">品名排序</option>
+              <option value="status">狀態排序</option>
+              <option value="recent">最近異動</option>
+            </select>
+          </label>
+          <label class="catalog-select">
+            <span>每頁顯示</span>
+            <select id="pageSizeSelect">
+              <option value="24">24 個</option>
+              <option value="48">48 個</option>
+              <option value="96">96 個</option>
+            </select>
+          </label>
+          <span id="inventoryCount">0 件物品</span>
+        </div>
+        <div class="filter-panel" id="filterPanel">
+          <input id="inventoryFilter" type="search" placeholder="搜尋類別、品名、規格、位置">
+          <select id="categoryFilter"><option value="">全部類別</option></select>
+          <select id="statusFilter">
+            <option value="">全部狀態</option>
+            <option value="良好">良好</option>
+            <option value="在庫">在庫</option>
+            <option value="已出庫">已出庫</option>
+            <option value="維修中">維修中</option>
+            <option value="報廢">報廢</option>
+          </select>
+          <select id="locationFilter"><option value="">全部位置</option></select>
+          <button id="clearFilters" type="button">清除篩選</button>
+        </div>
+        <div class="product-grid" id="inventoryGrid"></div>
+        <div class="pager" id="inventoryPager"></div>
+        <div class="table-wrap inventory-table-fallback">
+          <table>
+            <thead><tr><th>單件編號</th><th>類別</th><th>品名</th><th>規格</th><th>狀態</th><th>位置</th></tr></thead>
+            <tbody id="inventoryTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="view" id="view-history">
+        <div class="toolbar"><input id="historyFilter" type="search" placeholder="搜尋物品、動作、地點、操作人"></div>
+        <div class="movement-list" id="movementList"></div>
+      </section>
+    </main>
+  </div>
+  <div class="toast" id="toast"></div>
+  <?!= include('app'); ?>
+</body>
+</html>

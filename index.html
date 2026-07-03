@@ -3,26 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Chome好室寓所 提供包租代管、招租媒合、租務管理與軟裝加值服務，協助房東穩定出租，也讓租客找到更舒適的家。">
+  <meta name="description" content="Chome好室寓所 提供包租代管、招租媒合、租務管理與軟裝加值服務，協助房東穩定出租，也讓租客找到更舒適的家">
   <title>Chome好室寓所 包租代管｜讓房子被好好照顧</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="icon" type="image/png" href="assets/icon/logo.png">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --paper: #fbf7ef;
-      --linen: #f1e7d8;
-      --sand: #dfc9ad;
-      --wood: #aa7b53;
-      --clay: #815f4b;
-      --coffee: #352d28;
-      --ink: #2d2925;
-      --mist: #dfe3d7;
-      --sage: #77836f;
+      --linen: #f5ead8;
+      --sand: #f2c46d;
+      --wood: #c4782e;
+      --clay: #9a6538;
+      --coffee: #17384f;
+      --ink: #24313a;
+      --mist: #e7efe9;
+      --sage: #42766d;
       --white: #fffdf8;
-      --line: rgba(53, 45, 40, 0.12);
-      --shadow: 0 22px 55px rgba(64, 46, 32, 0.12);
+      --line: rgba(23, 56, 79, 0.14);
+      --shadow: 0 22px 55px rgba(23, 56, 79, 0.13);
       --radius: 8px;
     }
 
@@ -98,7 +98,7 @@
 
     .section-head h2 {
       margin: 14px 0 0;
-      font-family: "Noto Serif TC", serif;
+      font-family: "Microsoft JhengHei", "Noto Sans TC", sans-serif;
       font-size: clamp(2rem, 4vw, 4rem);
       line-height: 1.18;
       font-weight: 600;
@@ -288,7 +288,7 @@
     .hero-copy h1 {
       margin: 18px 0 22px;
       max-width: 720px;
-      font-family: "Noto Serif TC", serif;
+      font-family: "Microsoft JhengHei", "Noto Sans TC", sans-serif;
       font-size: clamp(2.65rem, 6vw, 6rem);
       line-height: 1.06;
       font-weight: 600;
@@ -406,7 +406,7 @@
 
     .stat strong {
       display: block;
-      font-family: "Noto Serif TC", serif;
+      font-family: "Microsoft JhengHei", "Noto Sans TC", sans-serif;
       font-size: clamp(2rem, 4vw, 3.2rem);
       line-height: 1;
       color: var(--coffee);
@@ -422,6 +422,265 @@
 
     section {
       padding: 96px 0;
+    }
+
+    .pain-section {
+      background:
+        linear-gradient(180deg, rgba(255, 253, 248, 0.82), rgba(241, 231, 216, 0.68)),
+        var(--paper);
+    }
+
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .pain-card {
+      position: relative;
+      min-height: 250px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 253, 248, 0.9);
+      box-shadow: 0 18px 46px rgba(64, 46, 32, 0.09);
+    }
+
+    .pain-card::before {
+      content: "";
+      position: absolute;
+      left: 28px;
+      top: 24px;
+      width: 42px;
+      height: 4px;
+      border-radius: 999px;
+      background: var(--wood);
+    }
+
+    .pain-card h3 {
+      margin: 30px 0 14px;
+      font-family: "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+      font-size: 1.38rem;
+      line-height: 1.35;
+      color: var(--coffee);
+    }
+
+    .pain-card p {
+      margin: 0;
+      color: rgba(45, 41, 37, 0.72);
+      line-height: 1.8;
+    }
+
+    .advantage-section {
+      background: #fffdf8;
+    }
+
+    .comparison-table {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .comparison-row {
+      display: grid;
+      grid-template-columns: 1.2fr repeat(3, 1fr);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .comparison-row:last-child {
+      border-bottom: 0;
+    }
+
+    .comparison-row > span {
+      min-height: 58px;
+      padding: 16px 18px;
+      border-right: 1px solid var(--line);
+      color: rgba(45, 41, 37, 0.76);
+      font-weight: 700;
+    }
+
+    .comparison-row > span:last-child {
+      border-right: 0;
+    }
+
+    .comparison-head {
+      background: var(--coffee);
+    }
+
+    .comparison-head > span {
+      color: var(--white);
+    }
+
+    .comparison-row .highlight {
+      color: var(--coffee);
+      background: rgba(223, 201, 173, 0.34);
+    }
+
+    .advantage-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .wide-story {
+      position: relative;
+      min-height: 520px;
+      display: grid;
+      align-items: center;
+      overflow: hidden;
+      padding: 118px 0;
+      color: var(--white);
+      background:
+        linear-gradient(90deg, rgba(23, 56, 79, 0.82) 0%, rgba(23, 56, 79, 0.62) 42%, rgba(23, 56, 79, 0.18) 100%),
+        linear-gradient(180deg, rgba(18, 14, 10, 0.28), rgba(18, 14, 10, 0.34)),
+        url("assets/images/generated-cases/fictional-banqiao-wenhua.png") center / cover no-repeat;
+      background-attachment: fixed;
+    }
+
+    .wide-story::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(255, 253, 248, 0.08) 1px, transparent 1px) 0 0 / 88px 88px;
+      pointer-events: none;
+    }
+
+    .wide-story-content {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+    }
+
+    .wide-story .eyebrow,
+    .wide-story h2 {
+      color: var(--white);
+    }
+
+    .wide-story h2 {
+      margin: 16px 0 20px;
+      font-family: "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+      font-size: clamp(2.35rem, 5vw, 5rem);
+      line-height: 1.14;
+      font-weight: 700;
+    }
+
+    .wide-story p {
+      max-width: 620px;
+      margin: 0;
+      color: rgba(255, 253, 248, 0.82);
+      font-size: 1.03rem;
+      line-height: 2;
+    }
+
+    .wide-story-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .wide-story .btn-primary {
+      color: var(--coffee);
+      background: var(--white);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.22);
+    }
+
+    .wide-story .btn-primary:hover {
+      background: var(--sand);
+    }
+
+    .wide-story .btn-secondary {
+      color: var(--white);
+      background: rgba(255, 253, 248, 0.14);
+      border-color: rgba(255, 253, 248, 0.38);
+      backdrop-filter: blur(10px);
+    }
+
+    .wide-story .btn-secondary:hover {
+      background: rgba(255, 253, 248, 0.22);
+      border-color: rgba(255, 253, 248, 0.58);
+    }
+
+    .renovation {
+      overflow: hidden;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255, 253, 248, 0.74), rgba(245, 234, 216, 0.82)),
+        var(--linen);
+    }
+
+    .renovation .section-head {
+      margin-bottom: 28px;
+    }
+
+    .renovation-carousel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    .renovation-carousel::before,
+    .renovation-carousel::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      z-index: 2;
+      width: min(120px, 18vw);
+      pointer-events: none;
+    }
+
+    .renovation-carousel::before {
+      left: 0;
+      background: linear-gradient(90deg, var(--linen), rgba(245, 234, 216, 0));
+    }
+
+    .renovation-carousel::after {
+      right: 0;
+      background: linear-gradient(270deg, var(--linen), rgba(245, 234, 216, 0));
+    }
+
+    .renovation-track {
+      display: flex;
+      width: max-content;
+      gap: 16px;
+      animation: renovationSlide 120s linear infinite;
+    }
+
+    .renovation-carousel:hover .renovation-track {
+      animation-play-state: paused;
+    }
+
+    .renovation-slide {
+      position: relative;
+      flex: 0 0 clamp(280px, 46vw, 720px);
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .renovation-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @keyframes renovationSlide {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(calc(-50% - 8px));
+      }
     }
 
     .split-panel {
@@ -471,7 +730,7 @@
     .case-card h3,
     .fit-card h3 {
       margin: 0;
-      font-family: "Noto Serif TC", serif;
+      font-family: "Microsoft JhengHei", "Noto Sans TC", sans-serif;
       color: var(--coffee);
       font-size: 1.55rem;
     }
@@ -840,7 +1099,7 @@
       border-radius: 999px;
       color: var(--coffee);
       background: var(--sand);
-      font-family: "Noto Serif TC", serif;
+      font-family: "Microsoft JhengHei", "Noto Sans TC", sans-serif;
       font-size: 1.45rem;
       box-shadow: 0 20px 38px rgba(0, 0, 0, 0.18);
     }
@@ -948,7 +1207,7 @@
     .video-placeholder strong {
       display: block;
       margin-bottom: 10px;
-      font-family: "Noto Serif TC", serif;
+      font-family: "Microsoft JhengHei", "Noto Sans TC", sans-serif;
       font-size: clamp(1.4rem, 4vw, 2.8rem);
       line-height: 1.25;
     }
@@ -1016,7 +1275,7 @@
 
     .form-copy h2 {
       margin: 14px 0 18px;
-      font-family: "Noto Serif TC", serif;
+      font-family: "Microsoft JhengHei", "Noto Sans TC", sans-serif;
       font-size: clamp(2rem, 4vw, 4.2rem);
       line-height: 1.18;
       color: var(--coffee);
@@ -1057,7 +1316,7 @@
 
     .official-form-card h3 {
       margin: 0;
-      font-family: "Noto Serif TC", serif;
+      font-family: "Microsoft JhengHei", "Noto Sans TC", sans-serif;
       font-size: clamp(1.65rem, 3vw, 2.6rem);
       line-height: 1.2;
       color: var(--coffee);
@@ -1176,7 +1435,7 @@
 
     .faq .section-title {
       margin: 14px 0 18px;
-      font-family: "Noto Serif TC", serif;
+      font-family: "Microsoft JhengHei", "Noto Sans TC", sans-serif;
       font-size: clamp(2rem, 4vw, 4rem);
       line-height: 1.18;
       color: var(--coffee);
@@ -1244,7 +1503,7 @@
 
     .contact h2 {
       margin: 0;
-      font-family: "Noto Serif TC", serif;
+      font-family: "Microsoft JhengHei", "Noto Sans TC", sans-serif;
       font-size: clamp(2rem, 4vw, 4.2rem);
       line-height: 1.18;
     }
@@ -1371,7 +1630,7 @@
     .lightbox-head h3 {
       margin: 0;
       color: var(--coffee);
-      font-family: "Noto Serif TC", serif;
+      font-family: "Microsoft JhengHei", "Noto Sans TC", sans-serif;
       font-size: 1.25rem;
     }
 
@@ -1445,6 +1704,10 @@
         opacity: 1;
         transform: none;
       }
+
+      .renovation-track {
+        animation: none;
+      }
     }
 
     @media (max-width: 1060px) {
@@ -1461,7 +1724,8 @@
       }
 
       .service-grid,
-      .case-grid {
+      .case-grid,
+      .pain-grid {
         grid-template-columns: repeat(2, 1fr);
       }
 
@@ -1624,11 +1888,38 @@
       .split-panel,
       .service-grid,
       .case-grid,
+      .pain-grid,
       .fit-grid,
       .contact-buttons,
       .form-row,
       .lightbox-gallery {
         grid-template-columns: 1fr;
+      }
+
+      .comparison-table {
+        overflow-x: auto;
+      }
+
+      .comparison-row {
+        min-width: 720px;
+      }
+
+      .renovation-slide {
+        flex-basis: min(86vw, 360px);
+      }
+
+      .wide-story {
+        min-height: 560px;
+        padding: 86px 0;
+        background:
+          linear-gradient(180deg, rgba(23, 56, 79, 0.88) 0%, rgba(23, 56, 79, 0.68) 56%, rgba(23, 56, 79, 0.42) 100%),
+          linear-gradient(180deg, rgba(18, 14, 10, 0.28), rgba(18, 14, 10, 0.34)),
+          url("assets/images/generated-cases/fictional-banqiao-wenhua.png") center / cover no-repeat;
+        background-attachment: scroll;
+      }
+
+      .wide-story p {
+        font-size: 0.98rem;
       }
 
       section {
@@ -1668,7 +1959,7 @@
     <div class="container nav">
       <a href="#top" class="brand" aria-label="Chome好室寓所 首頁">
         <span class="brand-mark"><img src="assets/icon/logo.png" alt="Chome好室寓所 Logo"></span>
-        <span>Chome好室寓所<small>包租代管與軟裝加值</small></span>
+        <span>Chome好室寓所<small>軟裝加值&代租代管</small></span>
       </a>
       <nav class="nav-links" id="navLinks" aria-label="主要導覽">
         <a href="#services">服務</a>
@@ -1678,7 +1969,7 @@
         <a href="#contact">聯絡</a>
       </nav>
       <div class="nav-actions">
-        <a class="btn btn-primary desktop-only" href="#assessment">房東評估</a>
+        <a class="btn btn-primary desktop-only" href="#assessment">委託評估</a>
         <button class="menu-toggle" id="menuToggle" type="button" aria-label="開啟選單" aria-expanded="false" aria-controls="navLinks">
           <span></span>
           <span></span>
@@ -1693,10 +1984,10 @@
       <div class="container hero-grid">
         <div class="hero-copy reveal">
           <span class="eyebrow">Rental care with warm design</span>
-          <h1>房子，不只是出租。<span>更是穩定收益的資產。</span></h1>
-          <p>我們協助房東快速媒合優質租客，處理帶看與管理瑣事，並透過代租代管與軟裝加值，降低空租風險、提升物件質感與租金價值。</p>
+          <h1>房子，不只是出租<span>更是穩定收益的資產</span></h1>
+          <p>我們協助房東快速媒合優質租客，處理帶看與管理瑣事，並透過代租代管與軟裝加值，降低空租風險、提升物件質感與租金價值</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#assessment">填寫房東評估</a>
+            <a class="btn btn-primary" href="#assessment">填寫委託評估</a>
             <a class="btn btn-secondary" href="#cases">瀏覽物件案例</a>
           </div>
           <div class="hero-note" aria-label="服務重點">
@@ -1720,18 +2011,268 @@
       </div>
     </section>
 
+    <section class="renovation" id="renovation">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Before / After</span>
+            <h2>改造案例</h2>
+          </div>
+          <p>透過整理、修繕與軟裝配置，讓物件從可出租，進一步變成更容易被看見、被喜歡的空間</p>
+        </div>
+      </div>
+      <div class="renovation-carousel reveal" aria-label="Chome好室寓所 改造案例自動輪播">
+        <div class="renovation-track">
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/muzha/muzha_01_a.png" alt="改造案例前後對比照片 1" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/muzha/muzha_02_a_bathroom.png" alt="改造案例前後對比照片 2" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/muzha/muzha_03_b.png" alt="改造案例前後對比照片 3" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/muzha/muzha_04_balcony.png" alt="改造案例前後對比照片 4" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/muzha/muzha_05_bathroom.png" alt="改造案例前後對比照片 5" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/muzha/muzha_06_c.png" alt="改造案例前後對比照片 6" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/muzha/muzha_07_d.png" alt="改造案例前後對比照片 7" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/muzha/muzha_08_kitchen.png" alt="改造案例前後對比照片 8" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/muzha/muzha_09_living_room.png" alt="改造案例前後對比照片 9" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/roosevelt_road/roosevelt_road_01_a.png" alt="改造案例前後對比照片 10" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/roosevelt_road/roosevelt_road_02_a_bathroom.png" alt="改造案例前後對比照片 11" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/roosevelt_road/roosevelt_road_03_b.png" alt="改造案例前後對比照片 12" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/roosevelt_road/roosevelt_road_04_b_bathroom.png" alt="改造案例前後對比照片 13" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/roosevelt_road/roosevelt_road_05_c.png" alt="改造案例前後對比照片 14" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/roosevelt_road/roosevelt_road_06_d.png" alt="改造案例前後對比照片 15" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/roosevelt_road/roosevelt_road_07_d_bathroom.png" alt="改造案例前後對比照片 16" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/xintai_road/xintai_road_01_4_living_room.png" alt="改造案例前後對比照片 17" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/xintai_road/xintai_road_02_4_room.png" alt="改造案例前後對比照片 18" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/xintai_road/xintai_road_03_a.png" alt="改造案例前後對比照片 19" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/xintai_road/xintai_road_04_b.png" alt="改造案例前後對比照片 20" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/xintai_road/xintai_road_05_kitchen.png" alt="改造案例前後對比照片 21" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/xintai_road/xintai_road_06_laundry_area.png" alt="改造案例前後對比照片 22" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/xiyuan_road/xiyuan_road_01_living_room.png" alt="改造案例前後對比照片 23" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/xiyuan_road/xiyuan_road_02_bathroom.png" alt="改造案例前後對比照片 24" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/xiyuan_road/xiyuan_road_03_kitchen.png" alt="改造案例前後對比照片 25" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/xiyuan_road/xiyuan_road_04_kitchen.png" alt="改造案例前後對比照片 26" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/xiyuan_road/xiyuan_road_05_room.png" alt="改造案例前後對比照片 27" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/xiyuan_road/xiyuan_road_06_room.png" alt="改造案例前後對比照片 28" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/xiyuan_road/xiyuan_road_07_room.png" alt="改造案例前後對比照片 29" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/zhonggang_road/zhonggang_road_01_a_01.png" alt="改造案例前後對比照片 30" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/zhonggang_road/zhonggang_road_02_a_02.png" alt="改造案例前後對比照片 31" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/zhonggang_road/zhonggang_road_03_b_01.png" alt="改造案例前後對比照片 32" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/zhonggang_road/zhonggang_road_04_b_02.png" alt="改造案例前後對比照片 33" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/zhonggang_road/zhonggang_road_05_balcony.png" alt="改造案例前後對比照片 34" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/zhonggang_road/zhonggang_road_06_bathroom.png" alt="改造案例前後對比照片 35" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/zhonggang_road/zhonggang_road_07_c.png" alt="改造案例前後對比照片 36" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/zhonggang_road/zhonggang_road_08_d.png" alt="改造案例前後對比照片 37" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/zhonggang_road/zhonggang_road_09_hallway.png" alt="改造案例前後對比照片 38" loading="lazy">
+          </figure>
+          <figure class="renovation-slide">
+            <img src="assets/images/before-after-wide/zhonggang_road/zhonggang_road_10_kitchen.png" alt="改造案例前後對比照片 39" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/muzha/muzha_01_a.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/muzha/muzha_02_a_bathroom.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/muzha/muzha_03_b.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/muzha/muzha_04_balcony.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/muzha/muzha_05_bathroom.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/muzha/muzha_06_c.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/muzha/muzha_07_d.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/muzha/muzha_08_kitchen.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/muzha/muzha_09_living_room.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/roosevelt_road/roosevelt_road_01_a.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/roosevelt_road/roosevelt_road_02_a_bathroom.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/roosevelt_road/roosevelt_road_03_b.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/roosevelt_road/roosevelt_road_04_b_bathroom.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/roosevelt_road/roosevelt_road_05_c.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/roosevelt_road/roosevelt_road_06_d.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/roosevelt_road/roosevelt_road_07_d_bathroom.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/xintai_road/xintai_road_01_4_living_room.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/xintai_road/xintai_road_02_4_room.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/xintai_road/xintai_road_03_a.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/xintai_road/xintai_road_04_b.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/xintai_road/xintai_road_05_kitchen.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/xintai_road/xintai_road_06_laundry_area.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/xiyuan_road/xiyuan_road_01_living_room.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/xiyuan_road/xiyuan_road_02_bathroom.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/xiyuan_road/xiyuan_road_03_kitchen.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/xiyuan_road/xiyuan_road_04_kitchen.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/xiyuan_road/xiyuan_road_05_room.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/xiyuan_road/xiyuan_road_06_room.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/xiyuan_road/xiyuan_road_07_room.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/zhonggang_road/zhonggang_road_01_a_01.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/zhonggang_road/zhonggang_road_02_a_02.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/zhonggang_road/zhonggang_road_03_b_01.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/zhonggang_road/zhonggang_road_04_b_02.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/zhonggang_road/zhonggang_road_05_balcony.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/zhonggang_road/zhonggang_road_06_bathroom.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/zhonggang_road/zhonggang_road_07_c.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/zhonggang_road/zhonggang_road_08_d.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/zhonggang_road/zhonggang_road_09_hallway.png" alt="" loading="lazy">
+          </figure>
+          <figure class="renovation-slide" aria-hidden="true">
+            <img src="assets/images/before-after-wide/zhonggang_road/zhonggang_road_10_kitchen.png" alt="" loading="lazy">
+          </figure>
+        </div>
+      </div>
+    </section>
+
     <section class="audiences">
       <div class="container">
         <div class="section-head reveal">
           <div>
             <span class="eyebrow">Two paths</span>
-            <h2>房東放心委託，租客安心入住。</h2>
+            <h2>房東放心委託，租客安心入住</h2>
           </div>
         </div>
         <div class="split-panel">
           <article class="audience-card reveal">
             <h3>我是房東</h3>
-            <p>讓您不用天天處理租客問題，也能安心收租。</p>
+            <p>讓您不用天天處理租客問題，也能安心收租</p>
             <ul>
               <li>快速媒合優質租客</li>
               <li>處理帶看與管理瑣事</li>
@@ -1741,7 +2282,7 @@
           </article>
           <article class="audience-card tenant reveal tenant">
             <h3>我是租客</h3>
-            <p>希望看見真實物件照片、理解空間風格，並透過社群追蹤最新釋出的房源。</p>
+            <p>希望看見真實物件照片、理解空間風格，並透過社群追蹤最新釋出的房源</p>
             <ul>
               <li>瀏覽整理後的住宅案例</li>
               <li>透過短影音快速感受空間</li>
@@ -1758,27 +2299,67 @@
         <div class="section-head reveal">
           <div>
             <span class="eyebrow">Why Chome好室寓所</span>
-            <h2>把房東最耗神的事，整理成可管理的流程。</h2>
+            <h2>把房東最耗神的事，整理成可管理的流程</h2>
           </div>
-          <p>空屋、租客篩選、修繕溝通、物件整理與租金穩定，往往不是單一問題。Chome好室寓所 的工作是把它們一起看，讓物件更容易被理解、被信任、被選擇。</p>
+          <p>空屋、租客篩選、修繕溝通、物件整理與租金穩定，往往不是單一問題Chome好室寓所 的工作是把它們一起看，讓物件更容易被理解、被信任、被選擇</p>
         </div>
         <div class="fit-grid">
           <article class="fit-card reveal">
             <h3>外地屋主</h3>
-            <p>不方便頻繁到場，需要有人協助現場狀況與租務溝通。</p>
+            <p>不方便頻繁到場，需要有人協助現場狀況與租務溝通</p>
           </article>
           <article class="fit-card reveal">
             <h3>忙碌房東</h3>
-            <p>希望出租流程更省心，不想被瑣碎修繕與訊息追著跑。</p>
+            <p>希望出租流程更省心，不想被瑣碎修繕與訊息追著跑</p>
           </article>
           <article class="fit-card reveal">
             <h3>新成屋交屋</h3>
-            <p>需要從空屋整理、家具配置到招租呈現一起規劃。</p>
+            <p>需要從空屋整理、家具配置到招租呈現一起規劃</p>
           </article>
           <article class="fit-card reveal">
             <h3>出租卡關</h3>
-            <p>照片、定價或空間狀態需要調整，提升租客第一眼好感。</p>
+            <p>照片、定價或空間狀態需要調整，提升租客第一眼好感</p>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="pain-section">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Landlord pain points</span>
+            <h2>出租卡關，通常不是單一問題</h2>
+          </div>
+          <p>空屋期、租客品質、修繕溝通與整理成本，往往會一起影響出租速度與租金表現Chome好室寓所 先釐清問題，再規劃適合的委託方式</p>
+        </div>
+        <div class="pain-grid">
+          <article class="pain-card reveal">
+            <h3>空租拖太久，天天都是損失</h3>
+            <p>照片不夠吸引、定價抓不準、帶看安排不順，都會讓空屋時間被拉長</p>
+          </article>
+          <article class="pain-card reveal">
+            <h3>租客品質與修繕溝通難掌握</h3>
+            <p>篩選、簽約、收租、報修都需要時間與經驗，忙碌屋主很容易被瑣事消耗</p>
+          </article>
+          <article class="pain-card reveal">
+            <h3>整理花了錢，租金卻沒有提升</h3>
+            <p>出租前整理需要站在租客視角規劃，讓預算真正轉換成租金與入住意願</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="wide-story">
+      <div class="container">
+        <div class="wide-story-content reveal">
+          <span class="eyebrow">Chome space care</span>
+          <h2>讓空屋，變成有人想住下來的家</h2>
+          <p>從整理、軟裝、照片呈現到後續租務管理，Chome好室寓所把每一個出租環節串起來，讓房東少一點瑣事，讓租客多一點安心</p>
+          <div class="wide-story-actions">
+            <a class="btn btn-primary" href="#assessment">我要委託評估</a>
+            <a class="btn btn-secondary" href="#cases">看美房鑑賞</a>
+          </div>
         </div>
       </div>
     </section>
@@ -1788,15 +2369,15 @@
         <div class="section-head reveal">
           <div>
             <span class="eyebrow">Services</span>
-            <h2>從出租前整理，到入住後管理。</h2>
+            <h2>從出租前整理，到入住後管理</h2>
           </div>
-          <p>服務設計以房東需求為核心，也保留軟裝加值能力，讓物件不只被管理，也能被更好地呈現。</p>
+          <p>服務設計以房東需求為核心，也保留軟裝加值能力，讓物件不只被管理，也能被更好地呈現</p>
         </div>
         <div class="service-grid">
           <article class="service-card reveal">
             <span class="service-number">01</span>
             <h3>包租代管</h3>
-            <p>協助房東規劃委託方式，降低日常管理負擔。</p>
+            <p>協助房東規劃委託方式，降低日常管理負擔</p>
             <ul>
               <li>租務窗口整合</li>
               <li>入住後管理</li>
@@ -1806,7 +2387,7 @@
           <article class="service-card reveal">
             <span class="service-number">02</span>
             <h3>招租媒合</h3>
-            <p>根據物件條件、地段與客群，調整出租呈現與溝通重點。</p>
+            <p>根據物件條件、地段與客群，調整出租呈現與溝通重點</p>
             <ul>
               <li>租客需求整理</li>
               <li>物件亮點包裝</li>
@@ -1816,7 +2397,7 @@
           <article class="service-card reveal">
             <span class="service-number">03</span>
             <h3>租務管理</h3>
-            <p>處理合約、收租提醒、訊息溝通與日常問題回報。</p>
+            <p>處理合約、收租提醒、訊息溝通與日常問題回報</p>
             <ul>
               <li>合約與入住事項</li>
               <li>租金與帳務提醒</li>
@@ -1826,7 +2407,7 @@
           <article class="service-card reveal">
             <span class="service-number">04</span>
             <h3>修繕協調</h3>
-            <p>協助確認問題、安排處理與回報進度，避免溝通斷點。</p>
+            <p>協助確認問題、安排處理與回報進度，避免溝通斷點</p>
             <ul>
               <li>問題初步判斷</li>
               <li>修繕資源協調</li>
@@ -1836,7 +2417,7 @@
           <article class="service-card reveal">
             <span class="service-number">05</span>
             <h3>物件整理</h3>
-            <p>出租前整理拍攝動線、清潔細節與空間秩序。</p>
+            <p>出租前整理拍攝動線、清潔細節與空間秩序</p>
             <ul>
               <li>空間狀態盤點</li>
               <li>出租前整理建議</li>
@@ -1846,7 +2427,7 @@
           <article class="service-card reveal">
             <span class="service-number">06</span>
             <h3>軟裝加值</h3>
-            <p>以家具、窗簾、織品與燈飾補足空間溫度，提高出租吸引力。</p>
+            <p>以家具、窗簾、織品與燈飾補足空間溫度，提高出租吸引力</p>
             <ul>
               <li>風格定位</li>
               <li>家具與傢飾建議</li>
@@ -1874,36 +2455,83 @@
         <div class="section-head reveal">
           <div>
             <span class="eyebrow">Process</span>
-            <h2>用五個步驟，讓委託更清楚。</h2>
+            <h2>用五個步驟，讓委託更清楚</h2>
           </div>
-          <p>從初步資料到現場了解，再到方案、簽約與後續管理，每一步都讓房東知道現在進行到哪裡。</p>
+          <p>從初步資料到現場了解，再到方案、簽約與後續管理，每一步都讓房東知道現在進行到哪裡</p>
         </div>
         <div class="timeline">
           <article class="step reveal">
             <strong>01</strong>
             <h3>初步評估</h3>
-            <p>房東填寫物件資料，先了解區域、坪數、狀態與期待服務。</p>
+            <p>房東填寫物件資料，先了解區域、坪數、狀態與期待服務</p>
           </article>
           <article class="step reveal">
             <strong>02</strong>
             <h3>現場了解</h3>
-            <p>確認空間現況、設備、修繕需求與出租前整理方向。</p>
+            <p>確認空間現況、設備、修繕需求與出租前整理方向</p>
           </article>
           <article class="step reveal">
             <strong>03</strong>
             <h3>方案建議</h3>
-            <p>依物件條件提出代管、招租、整理或軟裝加值建議。</p>
+            <p>依物件條件提出代管、招租、整理或軟裝加值建議</p>
           </article>
           <article class="step reveal">
             <strong>04</strong>
             <h3>簽約管理</h3>
-            <p>確認委託內容與服務範圍，建立後續溝通與回報節奏。</p>
+            <p>確認委託內容與服務範圍，建立後續溝通與回報節奏</p>
           </article>
           <article class="step reveal">
             <strong>05</strong>
             <h3>招租維護</h3>
-            <p>進行物件呈現、租客媒合、入住協調與租務管理。</p>
+            <p>進行物件呈現、租客媒合、入住協調與租務管理</p>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="advantage-section">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Why Chome</span>
+            <h2>不只代管，也把出租變成可管理的資產</h2>
+          </div>
+        </div>
+        <div class="comparison-table reveal" aria-label="Chome好室寓所 與一般出租方式比較">
+          <div class="comparison-row comparison-head">
+            <span>項目</span>
+            <span>Chome好室寓所</span>
+            <span>一般仲介</span>
+            <span>房東自租</span>
+          </div>
+          <div class="comparison-row">
+            <span>租客媒合</span>
+            <span class="highlight">完整協助</span>
+            <span>協助招租</span>
+            <span>自行處理</span>
+          </div>
+          <div class="comparison-row">
+            <span>租務與修繕溝通</span>
+            <span class="highlight">專人窗口</span>
+            <span>有限協助</span>
+            <span>自行協調</span>
+          </div>
+          <div class="comparison-row">
+            <span>空屋整理與軟裝</span>
+            <span class="highlight">可整合規劃</span>
+            <span>較少著墨</span>
+            <span>自行找工班</span>
+          </div>
+          <div class="comparison-row">
+            <span>出租後管理</span>
+            <span class="highlight">持續追蹤</span>
+            <span>依個案而定</span>
+            <span>自行負責</span>
+          </div>
+        </div>
+        <div class="advantage-actions reveal">
+          <a class="btn btn-primary" href="#assessment">我要委託評估</a>
+          <a class="btn btn-secondary" href="#cases">先看美房鑑賞</a>
         </div>
       </div>
     </section>
@@ -1922,7 +2550,7 @@
               <img class="video-banner-image" src="assets/icon/Banner_YT.jpg" alt="Chome好室寓所 YouTube 橫幅">
               <span>
                 <strong>Chome好室寓所 YouTube 頻道</strong>
-                <span>若影片無法在網站內播放，可以直接前往 Chome好室寓所 YouTube 頻道觀看。</span>
+                <span>若影片無法在網站內播放，可以直接前往 Chome好室寓所 YouTube 頻道觀看</span>
                 <a class="btn btn-secondary" href="https://www.youtube.com/channel/UCiBXMoMY0IQpuu6G8-kPoDw" target="_blank" rel="noopener">前往 YouTube 頻道</a>
               </span>
             </div>
@@ -1932,21 +2560,21 @@
               <span class="video-thumb">01</span>
               <span>
                 <h3>物件走訪</h3>
-                <p>用 30 秒看採光、格局與家具配置。</p>
+                <p>用 30 秒看採光、格局與家具配置</p>
               </span>
             </a>
             <a class="video-item" href="#contact">
               <span class="video-thumb">02</span>
               <span>
                 <h3>軟裝加值</h3>
-                <p>看整理前後如何改變租客第一印象。</p>
+                <p>看整理前後如何改變租客第一印象</p>
               </span>
             </a>
             <a class="video-item" href="#faq">
               <span class="video-thumb">03</span>
               <span>
                 <h3>房東 FAQ</h3>
-                <p>用短影片回答費用、修繕與委託流程。</p>
+                <p>用短影片回答費用、修繕與委託流程</p>
               </span>
             </a>
           </aside>
@@ -1959,12 +2587,11 @@
         <div class="form-copy reveal">
           <span class="eyebrow">Landlord assessment</span>
           <h2>我要委託評估</h2>
-          <p>收到後我們會依你的物件資訊再安排後續聯繫。</p>
+          <p>收到後我們會依你的物件資訊再安排後續聯繫</p>
         </div>
         <div class="form-panel reveal official-form-card">
-          <span class="form-kicker">Google Form</span>
-          <h3>房東物件評估表</h3>
-          <p>表單內會請你填寫姓名、聯絡方式、物件區域、屋況與希望服務。</p>
+          <h3>填寫評估表單</h3>
+          <p>表單內會請你填寫姓名、聯絡方式、物件區域、屋況與希望服務</p>
           <ul class="form-checklist" aria-label="????????">
             <li>房東姓名與聯絡方式</li>
             <li>物件地址或區域</li>
@@ -1985,27 +2612,27 @@
         <div class="faq-list reveal">
           <details open>
             <summary>包租與代管差在哪裡？</summary>
-            <p>包租通常由管理方承接一定出租責任，代管則偏向協助房東處理招租、租務、修繕與租客溝通。實際方案會依物件狀況與房東期待確認。</p>
+            <p>包租通常由管理方承接一定出租責任，代管則偏向協助房東處理招租、租務、修繕與租客溝通實際方案會依物件狀況與房東期待確認</p>
           </details>
           <details>
             <summary>服務費用怎麼計算？</summary>
-            <p>費用會依服務範圍、物件狀態與管理需求而定。建議先填寫評估表，Chome好室寓所 會依資料提供適合的合作方式。</p>
+            <p>費用會依服務範圍、物件狀態與管理需求而定建議先填寫評估表，Chome好室寓所 會依資料提供適合的合作方式</p>
           </details>
           <details>
             <summary>修繕問題由誰處理？</summary>
-            <p>Chome好室寓所 可協助初步確認問題、安排修繕溝通與進度回報。是否由房東負擔費用，會依設備責任與合約內容判斷。</p>
+            <p>Chome好室寓所 可協助初步確認問題、安排修繕溝通與進度回報是否由房東負擔費用，會依設備責任與合約內容判斷</p>
           </details>
           <details>
             <summary>會協助篩選租客嗎？</summary>
-            <p>會。招租媒合會依物件定位與房東需求協助溝通，降低不適合的看屋與入住風險。</p>
+            <p>會招租媒合會依物件定位與房東需求協助溝通，降低不適合的看屋與入住風險</p>
           </details>
           <details>
             <summary>空屋需要整理或軟裝嗎？</summary>
-            <p>不一定。若物件狀態已佳，只需整理拍攝與重點呈現；若空間缺少生活感，軟裝加值能提升照片吸引力與租客想像。</p>
+            <p>不一定若物件狀態已佳，只需整理拍攝與重點呈現；若空間缺少生活感，軟裝加值能提升照片吸引力與租客想像</p>
           </details>
           <details>
             <summary>租客可以從官網看最新房源嗎？</summary>
-            <p>官網會展示精選案例與社群入口。最新釋出的房源與短影音內容，建議透過聯絡按鈕追蹤 Chome好室寓所 社群。</p>
+            <p>官網會展示精選案例與社群入口最新釋出的房源與短影音內容，建議透過聯絡按鈕追蹤 Chome好室寓所 社群</p>
           </details>
         </div>
       </div>
@@ -2050,7 +2677,7 @@
   </footer>
 
   <div class="mobile-cta" aria-label="快速操作">
-    <a class="btn btn-primary" href="#assessment">房東評估</a>
+    <a class="btn btn-primary" href="#assessment">委託評估</a>
     <a class="btn btn-secondary" href="#cases">看物件</a>
   </div>
 
@@ -2078,7 +2705,7 @@
                   "機能生活圈",
                   "整理完成"
             ],
-            "description": "近文山生活圈，房內配置以清爽家具與明亮採光為主，適合重視舒適與通勤便利的租客。",
+            "description": "近文山生活圈，房內配置以清爽家具與明亮採光為主，適合重視舒適與通勤便利的租客",
             "rentUrl": "",
             "photos": [
                   "property-001-wenshan-roosevelt/room-2a/image-001.jpg",
@@ -2125,7 +2752,7 @@
                   "木質簡約",
                   "獨立空間"
             ],
-            "description": "以 A room 作為主要展示，空間色調乾淨柔和，保留家具與收納的實用感。",
+            "description": "以 A room 作為主要展示，空間色調乾淨柔和，保留家具與收納的實用感",
             "rentUrl": "",
             "photos": [
                   "property-002-wenshan-muzha/room-a/image-001.jpg",
@@ -2172,7 +2799,7 @@
                   "清爽桌面",
                   "生活機能"
             ],
-            "description": "以單房視角呈現居住尺度，搭配簡約家具、柔和燈光與日常收納。",
+            "description": "以單房視角呈現居住尺度，搭配簡約家具、柔和燈光與日常收納",
             "rentUrl": "",
             "photos": [
                   "property-003-xinzhuang-xintai/room-3a/image-001.jpg",
@@ -2223,7 +2850,7 @@
                   "明亮臥室",
                   "可看出租頁"
             ],
-            "description": "位於巷弄住宅區，空間整理後更容易看見房間尺度與入住動線。",
+            "description": "位於巷弄住宅區，空間整理後更容易看見房間尺度與入住動線",
             "rentUrl": "https://rent.591.com.tw/21243741",
             "photos": [
                   "property-004-luzhou-minquan/room-a/image-001.jpg",
@@ -2264,7 +2891,7 @@
                   "暖色臥室",
                   "可看出租頁"
             ],
-            "description": "以暖色家具與窗簾修飾房間氛圍，讓租客更容易想像入住後的生活感。",
+            "description": "以暖色家具與窗簾修飾房間氛圍，讓租客更容易想像入住後的生活感",
             "rentUrl": "https://rent.591.com.tw/20107572",
             "photos": [
                   "property-005-xinzhuang-zhonggang/room-a/image-001.jpg",
@@ -2299,7 +2926,7 @@
                   "小宅配置",
                   "可看出租頁"
             ],
-            "description": "小坪數空間以必要家具與留白為主，呈現乾淨、好整理的入住狀態。",
+            "description": "小坪數空間以必要家具與留白為主，呈現乾淨、好整理的入住狀態",
             "rentUrl": "https://rent.591.com.tw/21210101",
             "photos": [
                   "property-006-xinzhuang-ziyou/room-a/image-001.jpg",
@@ -2327,7 +2954,7 @@
                   "軟裝整理",
                   "可看出租頁"
             ],
-            "description": "以完工照片呈現整理後的完整樣貌，適合租客快速掌握公共空間與整體風格。",
+            "description": "以完工照片呈現整理後的完整樣貌，適合租客快速掌握公共空間與整體風格",
             "rentUrl": "https://rent.591.com.tw/21205686?s=ac",
             "photos": [
                   "property-007-wanhua-xiyuan/completed/image-001.png",
@@ -2389,6 +3016,48 @@
                   "property-007-wanhua-xiyuan/before/image-032.jpg",
                   "property-007-wanhua-xiyuan/before/image-033.jpg",
                   "property-007-wanhua-xiyuan/before/image-034.jpg"
+            ]
+      },
+      {
+            "title": "中山民生東路",
+            "status": "中山區",
+            "location": "中山區民生東路",
+            "cover": "generated-cases/fictional-zhongshan-minsheng.png",
+            "tags": [
+                  "中山區民生東路",
+                  "奶油木質",
+                  "採光套房",
+                  "虛構案例"
+            ],
+            "description": "以柔和木色與低飽和軟裝營造清爽入住感，適合重視生活機能與通勤便利的租客",
+            "rentUrl": "",
+            "photos": [
+                  "generated-cases/fictional-zhongshan-minsheng.png",
+                  "generated-cases/fictional-zhongshan-bathroom.png",
+                  "generated-cases/fictional-zhongshan-kitchen.png",
+                  "generated-cases/fictional-zhongshan-bedroom.png",
+                  "generated-cases/fictional-zhongshan-living-desk.png"
+            ]
+      },
+      {
+            "title": "板橋文化路",
+            "status": "板橋區",
+            "location": "板橋區文化路",
+            "cover": "generated-cases/fictional-banqiao-wenhua.png",
+            "tags": [
+                  "板橋區文化路",
+                  "簡約收納",
+                  "機能宅",
+                  "虛構案例"
+            ],
+            "description": "以收納、照明與家具比例改善空間秩序，讓小坪數也能呈現穩定舒適的租屋質感",
+            "rentUrl": "",
+            "photos": [
+                  "generated-cases/fictional-banqiao-wenhua.png",
+                  "generated-cases/fictional-banqiao-bathroom.png",
+                  "generated-cases/fictional-banqiao-kitchen.png",
+                  "generated-cases/fictional-banqiao-bedroom.png",
+                  "generated-cases/fictional-banqiao-living-dining.png"
             ]
       }
 ];

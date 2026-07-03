@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>晶鑫倉庫管理</title>
+  <link rel="icon" type="image/png" href="assets/icon/logo.png">
+  <link rel="stylesheet" href="assets/warehouse.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="assets/icon/logo.png" alt="晶鑫">
+        <div>
+          <strong>晶鑫倉庫</strong>
+          <span>軟裝資產管理</span>
+        </div>
+      </div>
+
+      <nav class="nav-tabs" aria-label="主要功能">
+        <button class="nav-tab active" data-view="operate">出入庫</button>
+        <button class="nav-tab" data-view="inventory">庫存</button>
+        <button class="nav-tab" data-view="history">紀錄</button>
+        <button class="nav-tab" data-view="settings">設定</button>
+      </nav>
+
+      <div class="sidebar-metrics">
+        <div>
+          <span>在庫</span>
+          <strong id="metricInStock">0</strong>
+        </div>
+        <div>
+          <span>出庫</span>
+          <strong id="metricOut">0</strong>
+        </div>
+        <div>
+          <span>維修</span>
+          <strong id="metricRepair">0</strong>
+        </div>
+      </div>
+    </aside>
+
+    <main class="workspace">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Warehouse Console</p>
+          <h1>晶鑫物品出入庫</h1>
+        </div>
+        <div class="sync-state" id="syncState">本機模式</div>
+      </header>
+
+      <section class="view active" id="view-operate">
+        <div class="scanner-panel">
+          <div class="scan-box">
+            <video id="scannerVideo" playsinline muted></video>
+            <div class="scan-frame"></div>
+            <div class="scan-placeholder" id="scanPlaceholder">輸入或掃描單件物品編號</div>
+          </div>
+          <div class="scan-controls">
+            <label for="itemSearch">物品編號 / 品名</label>
+            <div class="input-row">
+              <input id="itemSearch" type="search" placeholder="JX-CUS-001-001、抱枕、LED">
+              <button id="scanButton" type="button">掃碼</button>
+            </div>
+            <div class="quick-list" id="quickList"></div>
+          </div>
+        </div>
+
+        <div class="operation-grid">
+          <section class="detail-panel">
+            <div class="section-title">
+              <span>目前物品</span>
+              <strong id="selectedItemId">尚未選取</strong>
+            </div>
+            <dl class="item-facts">
+              <div><dt>品名</dt><dd id="selectedName">-</dd></div>
+              <div><dt>規格</dt><dd id="selectedSpec">-</dd></div>
+              <div><dt>狀態</dt><dd id="selectedStatus">-</dd></div>
+              <div><dt>位置</dt><dd id="selectedLocation">-</dd></div>
+              <div><dt>品項</dt><dd id="selectedType">-</dd></div>
+              <div><dt>最近異動</dt><dd id="selectedMovedAt">-</dd></div>
+            </dl>
+          </section>
+
+          <section class="action-panel">
+            <div class="section-title">
+              <span>快速異動</span>
+              <strong id="actionTarget">未選取</strong>
+            </div>
+            <form id="movementForm">
+              <label for="actionType">動作</label>
+              <select id="actionType" required>
+                <option value="出庫">出庫</option>
+                <option value="入庫">入庫</option>
+                <option value="調撥">調撥</option>
+                <option value="維修">維修</option>
+                <option value="報廢">報廢</option>
+                <option value="盤點">盤點</option>
+              </select>
+
+              <label for="toLocation">目的地 / 新位置</label>
+              <input id="toLocation" type="text" list="locationOptions" value="公司倉庫" required>
+              <datalist id="locationOptions">
+                <option value="公司倉庫"></option>
+                <option value="暫存區"></option>
+                <option value="維修商"></option>
+                <option value="報廢區"></option>
+              </datalist>
+
+              <label for="operatorName">操作人</label>
+              <input id="operatorName" type="text" placeholder="輸入姓名" required>
+
+              <label for="movementNote">備註</label>
+              <textarea id="movementNote" rows="3" placeholder="房源、案場、損壞情況"></textarea>
+
+              <button class="primary-action" type="submit">新增異動紀錄</button>
+            </form>
+          </section>
+        </div>
+
+        <section class="history-strip">
+          <div class="section-title">
+            <span>此物品紀錄</span>
+            <strong id="selectedHistoryCount">0 筆</strong>
+          </div>
+          <div class="movement-list compact" id="selectedHistory"></div>
+        </section>
+      </section>
+
+      <section class="view" id="view-inventory">
+        <div class="toolbar">
+          <input id="inventoryFilter" type="search" placeholder="搜尋類別、品名、規格、編號">
+          <select id="statusFilter">
+            <option value="">全部狀態</option>
+            <option value="在庫">在庫</option>
+            <option value="已出庫">已出庫</option>
+            <option value="維修中">維修中</option>
+            <option value="報廢">報廢</option>
+          </select>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>單件編號</th>
+                <th>類別</th>
+                <th>品名</th>
+                <th>規格</th>
+                <th>狀態</th>
+                <th>位置</th>
+              </tr>
+            </thead>
+            <tbody id="inventoryTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="view" id="view-history">
+        <div class="toolbar">
+          <input id="historyFilter" type="search" placeholder="搜尋物品、動作、地點、操作人">
+          <button id="exportMovements" type="button">匯出 CSV</button>
+        </div>
+        <div class="movement-list" id="movementList"></div>
+      </section>
+
+      <section class="view" id="view-settings">
+        <div class="settings-grid">
+          <section class="settings-panel">
+            <div class="section-title">
+              <span>Google Sheets</span>
+              <strong>Apps Script</strong>
+            </div>
+            <label for="appsScriptUrl">Web App URL</label>
+            <input id="appsScriptUrl" type="url" placeholder="https://script.google.com/macros/s/.../exec">
+            <button id="saveSettings" class="primary-action" type="button">儲存設定</button>
+          </section>
+
+          <section class="settings-panel">
+            <div class="section-title">
+              <span>資料</span>
+              <strong>本機快取</strong>
+            </div>
+            <div class="button-row">
+              <button id="resetDemo" type="button">重置庫存</button>
+              <button id="downloadSnapshot" type="button">下載快照</button>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="assets/warehouse.js" type="module"></script>
+</body>
+</html>
